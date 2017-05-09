@@ -1,0 +1,22 @@
+.navbar-light {
+  .navbar-nav {
+    .nav-link {
+      &:hover {
+        background-color: $black;
+        color: $ucf-gold;
+      }
+    }
+
+    .nav-item:last-child {
+      .nav-link {
+        background: $ucf-gold;
+        color: $black;
+
+        &:hover {
+          background: $black;
+          color: $ucf-gold;
+        }
+      }
+    }
+  }
+}

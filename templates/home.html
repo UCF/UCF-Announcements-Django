@@ -1,0 +1,63 @@
+{% extends 'front-end-base.html' %}
+{% load announcements %}
+{% block content_header %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Announcements</h1>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'announcements.manager.create' %}" class="btn btn-outline-success"><span class="fa fa-pencil"></span> Post An Announcement</a>
+    </div>
+</div>
+<div class="my-4 mb-0 align-middle">
+    <label class="mr-4" for="audience-filters">Filter by...</label>
+    <ul class="list-unstyled list-inline d-inline-block">
+    {% for aud in audiences %}
+        <li class="list-inline-item">
+            <a href="?audience={{ aud.name }}" class="badge {{ aud.name|audience_badge }}">{{ aud.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+{% block content_body %}
+{% if announcements %}
+<div class="announcements">
+    <div class="row">
+        {% for item in announcements %}
+            <div class="col-4">
+                <div class="card mb-4">
+                    <h2 class="card-header">{{ item.title }}</h2>
+                    <div class="card-block">
+                        <p>{{ item.description|safe|truncatewords:25 }}</p>
+                        <dl>
+                            <dt>Audience: </dt>
+                            <dd>
+                                <ul class="list-unstyled list-inline">
+                                {% for aud in item.audience.all %}
+                                    <li class="list-inline-item"><a class="badge {{ aud.name|audience_badge }}" href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}">{{ aud.name }}</a></li>
+                                {% endfor %}
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-4">Contact</dt>
+                            <dd class="col-sm-8">{{ item.contact_name }}</dd>
+                            <dt class="col-sm-4">Phone</dt>
+                            <dd class="col-sm-8"><a href="tel:{{ item.contact_phone|strip_phone }}">{{ item.contact_phone }}</a></dd>
+                            <dt class="col-sm-4">Email</dt>
+                            <dd class="col-sm-8"><a href="mailto:{{ item.contact_email }}">{{ item.contact_email }}</a></dd>
+                        </dl>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-block" href="{% url 'announcements.detail' slug=item.slug %}">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<p>No announcements found.</p>
+{% endif %}
+{% endblock %}

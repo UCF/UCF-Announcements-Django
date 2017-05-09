@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Login | {{ block.super }} Admin {% endblock %}
+{% block content_header %}{% endblock %}
+{% block content_body %}
+<section class="row">
+    <div class="col-md-5 align-self-center">
+        <h1 class="h2 heading-underline">Login</h1>
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>Error: </strong>
+            <ul class="errors">
+                {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <form class="form-horizontal" action="{% url 'django.contrib.auth.views.login' %}" method="post" id="login-form">
+            {% csrf_token %}
+            <div class="form-group {% if form.password.errors %}error{% endif %}">
+                <label class="control-label" for="id_username">NID</label>
+                <div class="controls">
+                    <input type="text" id="id_username" class="form-control" name="username" placeholder="Your NID, e.g. a1234567" {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
+                    {{ form.username.errors }}
+                </div>
+            </div>
+            <div class="form-group {% if form.password.errors %}error{% endif %}">
+                <label class="control-label" for="id_password">NID Password</label>
+                <div class="controls">
+                    <input type="password" class="form-control" id="id_password" name="password" placeholder="Your NID password" {% if form.password.value %}value="{{ form.password.value }}"{% endif %}>
+                    {{ form.password.errors }}
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="next" value="{{next}}" />
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-xs-block">Log In</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

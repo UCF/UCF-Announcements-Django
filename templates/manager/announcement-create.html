@@ -1,0 +1,29 @@
+{% extends 'manager/manager-base.html' %}
+{% load static %}
+{% block title %}Create Announcement | {{ block.super }} Admin {% endblock %}
+{% block header_scripts %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css" integrity="sha256-4qBzeX420hElp9/FzsuqUNqVobcClz1BjnXoxUDSYQ0=" crossorigin="anonymous" />
+{% endblock %}
+{% block content_header %}{% endblock %}
+{% block content_body %}
+    <h1 class="h2 heading-underline">Post An Announcement</h1>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Error: </strong>
+        <ul class="errors">
+            {% for error in form.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% include 'forms/announcement-create-form.html' %}
+    
+{% endblock %}
+{% block footer_scripts %}
+    {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.7/tinymce.min.js" integrity="sha256-oR0CDpwhlVmHs3+D3aV3jHw881DqM4n4uLhEhKn4pFw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js" integrity="sha256-jdwX0QzXB7z7Xc7Vz0ovtIHWO5qIZWg0aLcGv44JDgE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.1.1/typeahead.bundle.min.js" integrity="sha256-ZA+bBTKKj2rKgqw96IjkkZazTWUbroOtZxrzF1ww02A=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/script.min.js' %}"></script>
+{% endblock %}

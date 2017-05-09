@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+    {% block head %}
+        <title>{% block title %}University of Central Florida Announcements{% endblock %}</title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="{% block meta_description %}{% endblock %}">
+        <meta name="application-name" content="UCF Announcements">
+        {% block meta %}{% endblock %}
+        {% block header_scripts %}{% endblock %}
+        <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    {% endblock %}
+    </head>
+    <body>
+        {% block header_nav %}{% endblock %}
+        <main class="mt-4 main-content">
+        {% block content %}
+            <div class="container">
+            {% block content_header %}{% endblock %}
+            {% block content_body %}{% endblock %}
+            </div>
+            {% block content_footer %}{% endblock %}
+        {% endblock %}
+        </main>
+        {% block footer %}{% endblock %}
+    {% block footer_scripts %}
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js" integrity="sha256-tQ3x4V2JW+L0ew/P3v2xzL46XDjEWUExFkCDY0Rflqc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/framework.min.js' %}"></script>
+    <script type="text/javascript" id="ucfhb-script" src="//universityheader.ucf.edu/bar/js/university-header.js?use-1200-breakpoint=1"></script>
+    {% endblock %}
+    </body>
+</html>

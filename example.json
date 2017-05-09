@@ -1,0 +1,22 @@
+{
+    "title": "My Newest Announcement - 2",
+    "description": "This is my description text.",
+    "audience": [
+        {
+            "name": "Faculty"
+        },
+        {
+            "name": "Staff"
+        }
+    ],
+    "keywords": [
+        "Tag1"
+    ],
+    "start_date": "2017-05-11",
+    "end_date": "2017-05-18",
+    "url": "https://www.ucf.edu",
+    "contact_name": "Jim Barnes",
+    "contact_phone": "(407) 823-1678",
+    "contact_email": "james.barnes@ucf.edu",
+    "posted_by": "Jim Barnes"
+}

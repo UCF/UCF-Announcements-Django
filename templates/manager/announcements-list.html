@@ -1,0 +1,64 @@
+{% extends 'manager/manager-base.html' %}
+{% block content_header %}
+<div class="row">
+    <div class="col-md-8">
+        <h1 class="h2 heading-underline">Manage Announcements</h1>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-success" href="{% url 'announcements.manager.create' %}"><span class="fa fa-plus"></span> New</a>
+    </div>
+</div>
+{% endblock %}
+{% block content_body %}
+<div class="announcements">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#published" role="tab">Published Announcements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#pending" role="tab">Pending Announcements</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="published" role="tabpanel">
+        {% if published %}
+        <table class="table">
+            <thead>
+                <th scope="col">Title</th>
+                <th scope="col">Actions</th>
+            </thead>
+            <tbody>
+            {% for item in published %}
+                <tr>
+                    <td>{{ item.title }}</td>
+                    <td><a href="{% url 'announcements.manager.edit' slug=item.slug %}" class="btn btn-warning"><span class="fa fa-pencil"></span> Edit</a>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div class="alert alert-info"><p>You currently do not have any published announcements.</p></div>
+        {% endif %}
+        </div>
+        <div class="tab-pane" id="pending" role="tabpanel">
+        {% if pending %}
+        <table class="table">
+            <thead>
+                <th scope="col">Title</th>
+                <th scope="col">Actions</th>
+            </thead>
+            <tbody>
+            {% for item in pending %}
+                <tr>
+                    <td>{{ item.title }}</td>
+                    <td><a href="{% url 'announcements.manager.edit' slug=item.slug %}" class="btn btn-warning"><span class="fa fa-pencil"></span> Edit</a>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div class="alert alert-info"><p>You currently do not have any pending announcements.</p>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

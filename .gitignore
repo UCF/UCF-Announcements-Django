@@ -1,0 +1,27 @@
+static/*
+*.pyc
+*.sqlite3
+settings_local.py
+apache/python.wsgi
+._*
+Thumbs.db
+.DS_Store
+
+*.db
+*.db-journal
+*.log
+
+# IDEs
+.idea
+.project
+.pydevproject
+
+# SASS
+.sass-cache
+
+# Bower
+src/components/*
+
+# Gulp
+node_modules/*
+gulp-config.json

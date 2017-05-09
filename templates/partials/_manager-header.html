@@ -1,0 +1,20 @@
+<header>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#manager-nav" aria-controls="manager-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="{% url 'announcements.home' %}" class="navbar-brand">Announcements</a>
+            <div class="collapse navbar-collapse" id="manager-nav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item{% if request.resolver_match.url_name == 'announcements.manager' %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'announcements.manager' %}">Manager</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    Hello, {{ request.user.first_name }}. <a class="text-muted" href="{% url 'django.contrib.auth.views.logout' %}">Logout</a>
+                </span>
+            </div>
+        </div>
+    </nav>
+</header>

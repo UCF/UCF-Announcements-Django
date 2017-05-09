@@ -1,0 +1,20 @@
+<header>
+    {% if header_menu_items %}
+    <nav class="navbar navbar-toggleable-md navbar-light pt-4 pb-2" id="header-nav-wrap" role="navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#header-menu" aria-controls="header-menu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+        <div id="header-menu" class="collapse navbar-collapse">
+            <div class="container">
+                <ul class="nav navbar-nav nav-fill w-100">
+                {% for item in header_menu_items %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ item.url }}">{{ item.title }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+</header>

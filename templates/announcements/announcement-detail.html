@@ -1,0 +1,37 @@
+{% extends 'front-end-base.html' %}
+{% load announcements %}
+{% block content_header %}
+<div class="row mb-4">
+    <div class="col self-align-left">
+        <h1>{{ object.title }}</h1>
+    </div>
+    {% if request.user.is_staff or request.user == object.posted_by %}
+    <div class="col self-align-right text-right">
+        <a href="{% url 'announcements.manager.edit' slug=object.slug %}" class="btn btn-outline-warning"><span class="fa fa-pencil"></span> Edit Announcement</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block content_body %}
+<article>
+    {{ object.description|safe }}
+    <dl class="row">
+    {% if object.url %}
+        <dt class="col-md-3">URL:</dt>
+        <dd class="col-md-9">
+            <a href="{{ object.url }}" target="_blank">{{ object.url }}</a>
+        </dd>
+    {% endif %}
+        <dt class="col-md-3">Contact Person:</dt>
+        <dd class="col-md-9">{{ object.contact_name }}</dd>
+    {% if object.contact_phone %}
+        <dt class="col-md-3">Phone:</dt>
+        <dd class="col-md-9"><a href="tel:{{object.contact_phone|strip_phone}}">{{ object.contact_phone }}</a></dd>
+    {% endif %}
+        <dt class="col-md-3">Email:</dt>
+        <dd class="col-md-9"><a href="mailto:{{object.contact_email}}">{{ object.contact_email }}</a></dd>
+        <dt class="col-md-3">Posted By:</dt>
+        <dd class="col-md-9">{{ object.posted_by }}</dd>
+    </dl>
+</article>
+{% endblock %}

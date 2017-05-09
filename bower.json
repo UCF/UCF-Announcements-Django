@@ -1,0 +1,11 @@
+{
+  "name": "ucf-announcements",
+  "private": true,
+  "devDependencies": {
+    "athena-framework": "https://github.com/UCF/Athena-Framework.git#v1.0.0-alpha"
+  },
+  "dependencies": {
+    "athena-framework": "https://github.com/UCF/Athena-Framework.git#master",
+    "font-awesome": "^4.7.0"
+  }
+}

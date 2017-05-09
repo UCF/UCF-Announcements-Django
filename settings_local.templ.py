@@ -27,6 +27,10 @@ DATABASES = {
     }
 }
 
+# Modify these values if hosting under subdirectory
+FORCE_SCRIPT_NAME = '/'
+CSRF_COOKIE_PATH = '/'
+
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'

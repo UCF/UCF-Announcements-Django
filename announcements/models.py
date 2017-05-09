@@ -141,6 +141,13 @@ class Announcement(models.Model):
     def __unicode(self):
         return self.title
 
+class Profile(models.Model):
+    """
+    A User Profile
+    """
+    user = models.OneToOneField(User, related_name='profile')
+    guid = models.CharField(max_length=100, null=True, unique=True)
+
 @receiver(post_save, sender=User)
 def create_auth_token(sender, instance, created=False, **kwargs):
     """
@@ -148,3 +155,4 @@ def create_auth_token(sender, instance, created=False, **kwargs):
     """
     if created:
         Token.objects.create(user=instance)
+        Profile.objects.create(user=instance)

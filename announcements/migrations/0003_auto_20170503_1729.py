@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            modal_name='revision',
+            model_name='revision',
             name='announcement',
             field=models.IntegerField(default=0)
         ),

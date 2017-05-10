@@ -4,9 +4,9 @@ from django.contrib.auth.views import login, logout
 from announcements.views import *
 
 urlpatterns = [
-    url(r'^login/$', login, kwargs={'template_name': 'manager/login.html'}, name='django.contrib.auth.views.login'),
-    url(r'^logout/$', logout, kwargs={'template_name': 'manager/logout.html'}, name='django.contrib.auth.views.logout'),
     url(r'^manager/$', AnnouncementListView.as_view(), name='announcements.manager'),
+    url(r'^manager/login/$', login, kwargs={'template_name': 'manager/login.html'}, name='django.contrib.auth.views.login'),
+    url(r'^manager/logout/$', logout, kwargs={'template_name': 'manager/logout.html'}, name='django.contrib.auth.views.logout'),
     url(r'^manager/post-an-announcement[/]?$', CreateAnnouncement.as_view(), name="announcements.manager.create"),
     url(r'^manager/edit-announcement/(?P<slug>[-\w]+)/', EditAnnouncement.as_view(), name="announcements.manager.edit"),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

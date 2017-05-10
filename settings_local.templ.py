@@ -31,8 +31,8 @@ DATABASES = {
 FORCE_SCRIPT_NAME = '/'
 CSRF_COOKIE_PATH = '/'
 
-LOGIN_URL = '/login/'
-LOGOUT_URL = '/logout/'
+LOGIN_URL = '/manager/login/'
+LOGOUT_URL = '/manager/logout/'
 LOGIN_REDIRECT_URL = '/'
 
 # NET Domain LDAP CONFIG

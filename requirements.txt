@@ -1,7 +1,7 @@
-Django==1.10.6
 appdirs==1.4.3
 beautifulsoup4==4.5.3
 bs4==0.0.1
+Django==1.10.6
 django-auth-ldap==1.2.10
 django-cors-headers==2.0.2
 django-taggit==0.22.0
@@ -9,8 +9,8 @@ django-taggit-serializer==0.1.5
 django-widget-tweaks==1.4.1
 djangorestframework==3.6.2
 gunicorn==19.7.1
+lxml==3.7.3
 packaging==16.8
 pyparsing==2.2.0
 python-ldap==2.4.32
 six==1.10.0
-wsgiref==0.1.2

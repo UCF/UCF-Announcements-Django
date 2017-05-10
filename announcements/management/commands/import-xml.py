@@ -91,7 +91,7 @@ class Command(BaseCommand):
                         continue
                         
 
-            except Exception, e:
-                print e.message
+            except Exception, ex:
+                print ex.message
                 continue
             

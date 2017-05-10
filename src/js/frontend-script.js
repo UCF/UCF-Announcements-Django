@@ -1,9 +1,9 @@
 const tagsInput = function ($) {
-  const engine = new Bloodhound({
-    remote: {
-      url: 'http://127.0.0.1:8000/api/keywords/?query=%QUERY&format=json'
-    }
-  });
+  // const engine = new Bloodhound({
+  //   remote: {
+  //     url: 'http://127.0.0.1:8000/api/keywords/?query=%QUERY&format=json'
+  //   }
+  // });
 
   $('#id_keywords').tokenfield({});
 

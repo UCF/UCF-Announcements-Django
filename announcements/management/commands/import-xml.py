@@ -84,9 +84,12 @@ class Command(BaseCommand):
                 audience_list = Audience.objects.all()
 
                 for aud in audience:
-                    i = audience_list.get(name=aud)
-                    if i:
+                    try:
+                        i = audience_list.get(name=aud)
                         new_item.audience.add(i)
+                    except Audience.DoesNotExist:
+                        continue
+                        
 
             except Exception, e:
                 print e.message

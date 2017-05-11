@@ -119,9 +119,22 @@ class Announcement(models.Model):
         Handles additional save functions
         """
         if not self.id or self.slug is None:
-            self.slug = slugify(self.title)
+            self.slug = self.unique_slug(self.title)
 
         super(Announcement, self).save(*args, **kwargs)
+
+    def unique_slug(self, title):
+        retval = slugify(title)
+
+        exists = Announcement.objects.filter(slug=retval).exists()
+        i = 0
+
+        while exists:
+            i += 1
+            retval = retval + '-' + str(i)
+            exists = Announcement.objects.filter(slug=retval).exists()
+            
+        return retval
 
     def is_owner(self, user=None):
         """

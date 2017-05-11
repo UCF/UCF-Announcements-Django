@@ -26,14 +26,27 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+LOGIN_REDIRECT_URL = '/'
+
 
 # Modify these values if hosting under subdirectory
 FORCE_SCRIPT_NAME = '/'
 CSRF_COOKIE_PATH = '/'
+CSRF_COOKIE_SECURE = False
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
+USE_X_FORWARDED_PROTO = True
 
 LOGIN_URL = '/manager/login/'
 LOGOUT_URL = '/manager/logout/'
-LOGIN_REDIRECT_URL = '/'
+STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 
 # NET Domain LDAP CONFIG
 LDAP_NET_HOST = 'ldaps://you.ldap.com'

@@ -6,6 +6,10 @@
     "es6": true,
     "jquery": true
   },
+  "globals": {
+    "Bloodhound": true,
+    "tinymce": true
+  },
   "extends": "eslint:recommended",
   "parserOptions": {
     "ecmaVersion": 8,
@@ -122,7 +126,6 @@
     "array-bracket-spacing": "error",
     "block-spacing": "error",
     "brace-style": "error",
-    "camelcase": "error",
     "comma-dangle": "error",
     "comma-spacing": "error",
     "comma-style": "error",

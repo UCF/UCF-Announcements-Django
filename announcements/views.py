@@ -119,6 +119,12 @@ class AnnouncementSyndicateView(CreateAPIView):
 
 class KeywordListAPIView(APIView):
     def get(self, request, format=None):
-        keywords = Tag.objects.all()
+        s = request.query_params.get('s', None)
+        keywords = None
+        if s is not None:
+            keywords = Tag.objects.filter(name__contains=s)
+        else:
+            keywords = Tag.objects.all()[:10]
+
         serializer = TagSerializer(keywords, many=True)
         return Response(serializer.data)

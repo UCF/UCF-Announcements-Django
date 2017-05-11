@@ -1,15 +1,30 @@
-const tagsInput = function ($) {
-  // const engine = new Bloodhound({
-  //   remote: {
-  //     url: 'http://127.0.0.1:8000/api/keywords/?query=%QUERY&format=json'
-  //   }
-  // });
+function tagsInput($) {
+  const engine = new Bloodhound({
+    datumTokenizer: (datum) => {
+      return Bloodhound.tokenizers.whitespace(datum.name);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: 'http://127.0.0.1:8000/api/keywords/?s=%QUERY&format=json',
+      wildcard: '%QUERY'
+    }
+  });
 
-  $('#id_keywords').tokenfield({});
+  engine.initialize();
 
-};
+  const $tf = $('#id_keywords').tokenfield({
+    typeahead: [null, {
+      source: engine.ttAdapter(),
+      displayKey: 'name'
+    }]
+  });
 
-const wysiwygInit = function ($) {
+  $('#id_keywords-tokenfield').on('typeahead:selected', (event, obj) => {
+    $tf.tokenfield('createToken', obj.name);
+  });
+}
+
+function wysiwygInit() {
   tinymce.init({
     selector: '.wysiwyg',
     plugins: 'link paste autoresize',
@@ -24,7 +39,7 @@ const wysiwygInit = function ($) {
     toolbar: 'bold italic underline | bullist numlist | link',
     autoresize_bottom_margin: 10
   });
-};
+}
 
 if (jQuery !== 'undefined') {
   jQuery(document).ready(($) => {

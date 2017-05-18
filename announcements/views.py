@@ -103,7 +103,7 @@ class EditAnnouncement(UpdateView):
 
     # Make sure status is set to the current status if not updated
     def form_valid(self, form):
-        if 'status' not in form.cleaned_data:
+        if 'status' in form.cleaned_data and not form.cleaned_data['status']:
             form.instance.status = "Pending"
 
         return super(EditAnnouncement, self).form_valid(form)

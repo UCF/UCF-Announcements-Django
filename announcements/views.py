@@ -106,7 +106,7 @@ class EditAnnouncement(UpdateView):
         if 'status' not in form.cleaned_data:
             form.instance.status = "Pending"
 
-        return super(EditorAnnouncement, self).form_valid(form)
+        return super(EditAnnouncement, self).form_valid(form)
 
 # API Views
 

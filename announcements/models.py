@@ -61,17 +61,24 @@ class AnnouncementManager(models.Manager):
         next_sunday = today + datetime.timedelta(days=today.weekday())
         return self.filter(start_date__gt=next_sunday, status='Publish')
 
-    def owned_by(self, user=None):
+    def owned_by(self, user=None, future=True):
         """
         Returns events owned by the user
 
         Args:
             user (User): A User object
         """
+        today = datetime.date.today()
+
         if user.is_staff:
-            return self.all()
+            retval = self.all()
         else:
-            return self.filter(author=user)
+            retval = self.filter(author=user)
+
+        if future:
+            retval = retval.filter(end_date__gte=today)
+
+        return retval.order_by('-start_date') #order by descensing `-`
 
 class Announcement(models.Model):
     """

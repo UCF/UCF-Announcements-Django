@@ -76,7 +76,7 @@ class AnnouncementListView(TemplateView):
 
     def get_context_data(self, *args):
         context = super(AnnouncementListView, self).get_context_data(*args)
-        announcements = Announcement.objects.owned_by(self.request.user)
+        announcements = Announcement.objects.owned_by(self.request.user, True)
         context['published'] = announcements.filter(status='Publish')
         context['pending'] = announcements.filter(status='Pending')
         return context

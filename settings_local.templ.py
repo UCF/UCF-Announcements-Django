@@ -64,3 +64,11 @@ LDAP_NET_SEARCH_SIZELIMIT = 5
 # Remote Menus
 REMOTE_MENU_HEADER = 'http://www.ucf.edu/wp-json/ucf-rest-menus/v1/menus/52/' # JSON of Main Site Menu
 REMOTE_MENU_FOOTER = 'http://www.ucf.edu/wp-json/ucf-rest-menus/v1/menus/48/' # JSON of Main Site Footer Menu
+
+# Constants for Semesters
+SPRING_MONTH_START = 1
+SPRING_MONTH_END = 5
+SUMMER_MONTH_START = 5
+SUMMER_MONTH_END = 7
+FALL_MONTH_START = 8
+FALL_MONTH_END = 12

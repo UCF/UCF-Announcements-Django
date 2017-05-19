@@ -42,6 +42,9 @@ class HomeView(RemoteMenuMixin, TemplateView):
 
         # Get the initial queryset
         items = self.get_initial_data(main_filter)
+        ongoing = self.get_initial_data('ongoing')
+        if main_filter != 'ongoing':
+            items = list(set(items) - set(ongoing))
 
         audience = self.request.GET.get('audience', None)
         if audience is not None:
@@ -52,6 +55,7 @@ class HomeView(RemoteMenuMixin, TemplateView):
             items = items.filter(keywords__name=keyword)
 
         context['announcements'] = items
+        context['ongoing'] = ongoing
         context['audiences'] = Audience.objects.all()
         return context
 

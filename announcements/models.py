@@ -12,6 +12,8 @@ from taggit.managers import TaggableManager
 
 from rest_framework.authtoken.models import Token
 
+import settings
+
 # Create your models here.
 
 class Audience(models.Model):
@@ -41,25 +43,31 @@ class AnnouncementManager(models.Manager):
         today = datetime.date.today()
         last_monday = today - datetime.timedelta(days=today.weekday())
         next_sunday = last_monday + datetime.timedelta(days=6)
-        return self.filter(start_date__gte=last_monday, end_date__lte=next_sunday, status='Publish')
+        return self.filter(start_date__lte=next_sunday, end_date__gte=today, status='Publish')
 
     def ongoing(self):
         """
-        Returns announcements that began less than 90 days before
-        and end less than 90 days after today
+        Returns announcements within this semester
         """
         today = datetime.date.today()
-        last_monday = today - datetime.timedelta(days=today.weekday())
-        next_sunday = today + datetime.timedelta(days=today.weekday())
-        return self.filter(start_date__lt=last_monday, end_date__gt=next_sunday, status='Publish')
+        end_date = None
+        if settings.SPRING_MONTH_START <= today.month <= settings.SPRING_MONTH_END:
+            end_date = datetime.date(today.year, settings.SPRING_MONTH_END, 1)
+        elif settings.SUMMER_MONTH_START <= today.month <= settings.SUMMER_MONTH_END:
+            end_date = datetime.date(today.year, settings.SUMMER_MONTH_END, 1)
+        else:
+            end_date = datetime.date(today.year, settings.FALL_MONTH_END, 1)
+
+        return self.filter(start_date__lte=end_date, end_date__gte=today, status='Publish')
 
     def upcoming(self):
         """
         Returns announcements that begin after next Sunday
         """
         today = datetime.date.today()
-        next_sunday = today + datetime.timedelta(days=today.weekday())
-        return self.filter(start_date__gt=next_sunday, status='Publish')
+        last_monday = today - datetime.timedelta(days=today.weekday())
+        next_sunday = last_monday + datetime.timedelta(days=6)
+        return self.filter(start_date__gte=next_sunday, status='Publish')
 
     def owned_by(self, user=None, future=True):
         """

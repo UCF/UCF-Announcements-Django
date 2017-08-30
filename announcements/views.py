@@ -43,8 +43,6 @@ class HomeView(RemoteMenuMixin, TemplateView):
         # Get the initial queryset
         items = self.get_initial_data(main_filter)
         ongoing = self.get_initial_data('ongoing')
-        if main_filter != 'ongoing':
-            items = list(set(items) - set(ongoing))
 
         audience = self.request.GET.get('audience', None)
         if audience is not None:
@@ -53,6 +51,9 @@ class HomeView(RemoteMenuMixin, TemplateView):
         keyword = self.request.GET.get('keyword', None)
         if keyword is not None:
             items = items.filter(keywords__name=keyword)
+
+        if main_filter != 'ongoing':
+            items = list(set(items) - set(ongoing))
 
         context['announcements'] = items
         context['ongoing'] = ongoing
@@ -124,7 +125,7 @@ class AnnouncementListAPIView(APIView):
 class AnnouncementSyndicateView(CreateAPIView):
     serializer_class = AnnouncementSerializer
     permission_class = (IsAdminUser,)
-    
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 

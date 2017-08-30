@@ -18,10 +18,35 @@
     </div>
     {% endif %}
     {% include 'forms/announcement-create-edit-form.html' %}
-    
+
 {% endblock %}
 {% block footer_scripts %}
     {{ block.super }}
+    <input type="hidden" id="showNewUserModal" value="{{request.user.profile.first_time}}">
+    <input type="hidden" id="confirmUserURL" value="{% url 'announcements.manager.confirmuser' %}">
+    <div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newUserModalLabel"><span class="badge badge-success">New</span> Announcements Features</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3>Announcement Editing</h3>
+            <p>Announcements can now be edited after they've been posted. By navigating to the <span class="badge badge-primary">Manager</span> link at the top of the page, you can view announcements you've posted. Currently, announcements can only be edited by the original creator of the announcement.</p>
+            <h3>Status Check</h3>
+            <p>The announcements on the <span class="badge badge-primary">Manager</span> page are organized by their current approval status. When an announcement is first posted, it will be placed in the "Pending Announcements" tab. Once it has been approved is will be moved into the "Published Announcements" tab.</p>
+            <h3>We Welcome Feedback</h3>
+            <p>We always value feedback, so please feel free to contact at <a href="mailto:webcom@ucf.edu">webcom@ucf.edu</a> if you have any questions regarding the changes.</p>
+          </div>
+          <div class="modal-footer">
+            <button id="newUserModalBtn" type="button" class="btn btn-success" data-dismiss="modal">Okay</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.7/tinymce.min.js" integrity="sha256-oR0CDpwhlVmHs3+D3aV3jHw881DqM4n4uLhEhKn4pFw=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js" integrity="sha256-jdwX0QzXB7z7Xc7Vz0ovtIHWO5qIZWg0aLcGv44JDgE=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.1.1/typeahead.bundle.min.js" integrity="sha256-ZA+bBTKKj2rKgqw96IjkkZazTWUbroOtZxrzF1ww02A=" crossorigin="anonymous"></script>

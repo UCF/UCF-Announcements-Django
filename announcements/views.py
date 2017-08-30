@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
@@ -140,3 +141,9 @@ class KeywordListAPIView(APIView):
 
         serializer = TagSerializer(keywords, many=True)
         return Response(serializer.data)
+
+def confirm_user_view(request):
+    if request.method == 'POST':
+        request.user.profile.first_time = False
+        request.user.profile.save()
+        return HttpResponse('OK')

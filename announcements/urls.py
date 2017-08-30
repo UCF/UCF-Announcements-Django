@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^manager/logout/$', logout, kwargs={'template_name': 'manager/logout.html'}, name='django.contrib.auth.views.logout'),
     url(r'^manager/post-an-announcement[/]?$', CreateAnnouncement.as_view(), name="announcements.manager.create"),
     url(r'^manager/edit-announcement/(?P<slug>[-\w]+)/', EditAnnouncement.as_view(), name="announcements.manager.edit"),
+    url(r'^manager/confirm-new-user[/]?$', confirm_user_view, name='announcements.manager.confirmuser'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/announcements[/]?$', AnnouncementListAPIView.as_view(), name="announcements.api.list"),
     url(r'^api/keywords[/]?$', KeywordListAPIView.as_view(), name="announcements.api.keywords"),

@@ -1,4 +1,4 @@
-function confirmNewUser(e) {
+function confirmNewUser() {
   const $urlInput = $('#confirmUserURL'),
     url = $urlInput.val(),
     $token = $('input[name="csrfmiddlewaretoken"]');
@@ -15,6 +15,7 @@ function showNewUserModal($) {
   const $hfShowModal = $('#showNewUserModal'),
     $newUserModal = $('#newUserModal'),
     $newUserModalBtn = $('#newUserModalBtn'),
+    $newUserModelClose = $('#newUserModelClose'),
     showModal = $hfShowModal ? $hfShowModal.val() : false;
 
   if (showModal === 'True') {
@@ -22,6 +23,7 @@ function showNewUserModal($) {
   }
 
   $newUserModalBtn.click(confirmNewUser);
+  $newUserModelClose.click(confirmNewUser);
 }
 
 if (jQuery !== 'undefined') {

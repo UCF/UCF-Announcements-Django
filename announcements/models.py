@@ -148,7 +148,7 @@ class Announcement(models.Model):
             i += 1
             retval = retval + '-' + str(i)
             exists = Announcement.objects.filter(slug=retval).exists()
-            
+
         return retval
 
     def is_owner(self, user=None):
@@ -175,6 +175,7 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, related_name='profile')
     guid = models.CharField(max_length=100, null=True, unique=True)
+    first_time = models.BooleanField(default=True)
 
 @receiver(post_save, sender=User)
 def create_auth_token(sender, instance, created=False, **kwargs):

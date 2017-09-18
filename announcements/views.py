@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
@@ -43,8 +44,6 @@ class HomeView(RemoteMenuMixin, TemplateView):
         # Get the initial queryset
         items = self.get_initial_data(main_filter)
         ongoing = self.get_initial_data('ongoing')
-        if main_filter != 'ongoing':
-            items = list(set(items) - set(ongoing))
 
         audience = self.request.GET.get('audience', None)
         if audience is not None:
@@ -53,6 +52,9 @@ class HomeView(RemoteMenuMixin, TemplateView):
         keyword = self.request.GET.get('keyword', None)
         if keyword is not None:
             items = items.filter(keywords__name=keyword)
+
+        if main_filter != 'ongoing':
+            items = list(set(items) - set(ongoing))
 
         context['announcements'] = items
         context['ongoing'] = ongoing
@@ -124,7 +126,7 @@ class AnnouncementListAPIView(APIView):
 class AnnouncementSyndicateView(CreateAPIView):
     serializer_class = AnnouncementSerializer
     permission_class = (IsAdminUser,)
-    
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
@@ -139,3 +141,9 @@ class KeywordListAPIView(APIView):
 
         serializer = TagSerializer(keywords, many=True)
         return Response(serializer.data)
+
+def confirm_user_view(request):
+    if request.method == 'POST':
+        request.user.profile.first_time = False
+        request.user.profile.save()
+        return HttpResponse('OK')

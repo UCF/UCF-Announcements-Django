@@ -67,7 +67,19 @@ gulp.task('babel', ['eslint'], function() {
     .pipe(gulp.dest(config.dist.js));
 });
 
-gulp.task('js', ['eslint', 'babel']);
+gulp.task('babel-admin', ['eslint'], function() {
+  var components = [
+    config.src.js + '/backend-script.js'
+  ];
+
+  return gulp.src(components)
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(rename('manager.min.js'))
+    .pipe(gulp.dest(config.dist.js));
+});
+
+gulp.task('js', ['eslint', 'babel', 'babel-admin']);
 
 gulp.task('scss-lint', function() {
   return gulp.src(config.src.scss + '/*.scss')

@@ -42,11 +42,6 @@ USE_X_FORWARDED_PROTO = True
 
 LOGIN_URL = '/manager/login/'
 LOGOUT_URL = '/manager/logout/'
-STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
-]
 
 # NET Domain LDAP CONFIG
 LDAP_NET_HOST = 'ldaps://you.ldap.com'

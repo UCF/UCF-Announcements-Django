@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
@@ -33,6 +34,11 @@ class RemoteMenuMixin(object):
         context['footer_menu_items'] = footer_menu_items
 
         return context
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('announcements.home')
 
 class HomeView(RemoteMenuMixin, TemplateView):
     template_name = 'home.html'

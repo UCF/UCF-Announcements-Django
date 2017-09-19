@@ -12,7 +12,7 @@
                     </li>
                 </ul>
                 <span class="navbar-text">
-                    Hello, {{ request.user.first_name }}. <a class="text-muted" href="{% url 'django.contrib.auth.views.logout' %}">Logout</a>
+                    Hello, {{ request.user.first_name }}. <a class="text-muted" href="{% url 'django.contrib.auth.views.logout' %}"><span class="fa fa-power-off ml-2"></span> Logout</a>
                 </span>
             </div>
         </div>

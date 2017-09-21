@@ -29,7 +29,7 @@ class AnnouncementForm(forms.ModelForm):
         super(AnnouncementForm, self).__init__(*args, **kwargs)
 
         if self.user and not self.user.is_superuser:
-            self.fields['status'].disabled = True
+            self.fields['status'].widget = forms.HiddenInput()
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

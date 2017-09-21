@@ -106,6 +106,11 @@ class CreateAnnouncement(CreateView):
         form.instance.status = "Pending"
         return super(CreateAnnouncement, self).form_valid(form)
 
+    def get_form_kwargs(self):
+        kwargs = super(CreateAnnouncement, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
 @method_decorator([login_required, user_is_authorized_editor], name='dispatch')
 class EditAnnouncement(UpdateView):
     model = Announcement

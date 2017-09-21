@@ -113,12 +113,10 @@ class EditAnnouncement(UpdateView):
     template_name = 'manager/announcement-edit.html'
     success_url = reverse_lazy('announcements.manager')
 
-    # Make sure status is set to the current status if not updated
-    def form_valid(self, form):
-        if 'status' in form.cleaned_data and not form.instance.status:
-            form.instance.status = 'Pending'
-
-        return super(EditAnnouncement, self).form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super(EditAnnouncement, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 # API Views
 

@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
@@ -33,6 +34,11 @@ class RemoteMenuMixin(object):
         context['footer_menu_items'] = footer_menu_items
 
         return context
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('announcements.home')
 
 class HomeView(RemoteMenuMixin, TemplateView):
     template_name = 'home.html'
@@ -100,6 +106,11 @@ class CreateAnnouncement(CreateView):
         form.instance.status = "Pending"
         return super(CreateAnnouncement, self).form_valid(form)
 
+    def get_form_kwargs(self):
+        kwargs = super(CreateAnnouncement, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
 @method_decorator([login_required, user_is_authorized_editor], name='dispatch')
 class EditAnnouncement(UpdateView):
     model = Announcement
@@ -107,12 +118,10 @@ class EditAnnouncement(UpdateView):
     template_name = 'manager/announcement-edit.html'
     success_url = reverse_lazy('announcements.manager')
 
-    # Make sure status is set to the current status if not updated
-    def form_valid(self, form):
-        if 'status' in form.cleaned_data and not form.cleaned_data['status']:
-            form.instance.status = "Pending"
-
-        return super(EditAnnouncement, self).form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super(EditAnnouncement, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 # API Views
 

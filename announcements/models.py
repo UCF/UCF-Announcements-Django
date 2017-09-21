@@ -43,22 +43,17 @@ class AnnouncementManager(models.Manager):
         today = datetime.date.today()
         last_monday = today - datetime.timedelta(days=today.weekday())
         next_sunday = last_monday + datetime.timedelta(days=6)
-        return self.filter(start_date__lte=next_sunday, end_date__gte=today, status='Publish')
+        return self.filter(start_date__lte=next_sunday, end_date__gte=last_monday, status='Publish')
 
     def ongoing(self):
         """
-        Returns announcements within this semester
+        Returns announcements that fall outside of this week
         """
         today = datetime.date.today()
-        end_date = None
-        if settings.SPRING_MONTH_START <= today.month <= settings.SPRING_MONTH_END:
-            end_date = datetime.date(today.year, settings.SPRING_MONTH_END, 1)
-        elif settings.SUMMER_MONTH_START <= today.month <= settings.SUMMER_MONTH_END:
-            end_date = datetime.date(today.year, settings.SUMMER_MONTH_END, 1)
-        else:
-            end_date = datetime.date(today.year, settings.FALL_MONTH_END, 1)
+        last_monday = today - datetime.timedelta(days=today.weekday())
+        next_sunday = last_monday + datetime.timedelta(days=6)
 
-        return self.filter(start_date__lte=end_date, end_date__gte=today, status='Publish')
+        return self.filter(start_date__lt=last_monday, end_date__gt=next_sunday, status='Publish')
 
     def upcoming(self):
         """

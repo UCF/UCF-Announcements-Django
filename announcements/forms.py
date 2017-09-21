@@ -24,12 +24,14 @@ class AnnouncementForm(forms.ModelForm):
             'posted_by': 'The name of the person or organization posting this announcement'
         }
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
+        self.user = kwargs.pop('user')
+
         super(AnnouncementForm, self).__init__(*args, **kwargs)
-        
+
+        if self.user and not self.user.is_superuser:
+            self.fields['status'].disabled = True
+
     def form_valid(self, form):
-        print self.user
         self.object = form.save(commit=False)
         self.object.author = self.user
-        self.object.status = 'Pending'
         self.object.save()

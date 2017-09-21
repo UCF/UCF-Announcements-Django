@@ -26,7 +26,7 @@
         {% for item in announcements %}
         <div class="col-6">
           <div class="card mb-4">
-            <h2 class="card-header">{{ item.title }}</h2>
+            <h2 class="h3 card-header">{{ item.title }}</h2>
             <div class="card-block">
               <p>{{ item.description|safe|truncatewords:25 }}</p>
               <dl>

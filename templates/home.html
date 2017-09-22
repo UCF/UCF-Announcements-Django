@@ -9,13 +9,13 @@
 </div>
 <div class="my-4 mb-0 align-middle">
   <label class="mr-4" for="audience-filters">Filter by...</label>
-  <ul class="list-unstyled list-inline d-inline-block">
-    {% for aud in audiences %}
-    <li class="list-inline-item">
-      <a href="?audience={{ aud.name }}" class="badge {{ aud.name|audience_badge }}">{{ aud.name }}</a>
-    </li>
-    {% endfor %}
-  </ul>
+  {% for aud in audiences %}
+    {% if request.GET.audience %}
+      <a href="?audience={{ aud.name }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
+    {% else %}
+    <a href="?audience={{ aud.name }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:'' }}">{{ aud.name }}</a>
+    {% endif %}
+  {% endfor %}
 </div>
 {% endblock %} {% block content_body %}
 <div class="announcements">

@@ -14,16 +14,13 @@ function confirmNewUser() {
 function showNewUserModal($) {
   const $hfShowModal = $('#showNewUserModal'),
     $newUserModal = $('#newUserModal'),
-    $newUserModalBtn = $('#newUserModalBtn'),
-    $newUserModelClose = $('#newUserModelClose'),
     showModal = $hfShowModal ? $hfShowModal.val() : false;
 
   if (showModal === 'True') {
     $newUserModal.modal();
   }
 
-  $newUserModalBtn.click(confirmNewUser);
-  $newUserModelClose.click(confirmNewUser);
+  $newUserModal.on('hide.bs.modal', confirmNewUser);
 }
 
 if (jQuery !== 'undefined') {

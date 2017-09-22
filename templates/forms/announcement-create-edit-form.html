@@ -65,7 +65,9 @@
     </div>
     {{ form.author }}
     <div class="form-group">
+        {% if form.status.is_hidden == False %}
         <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+        {% endif %}
         {{ form.status|add_class:"form-control" }}
     </div>
     <input class="btn btn-success btn-lg mb-4" type="submit" value="Update">

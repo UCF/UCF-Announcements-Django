@@ -6,6 +6,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Add allowed hosts
 ALLOWED_HOSTS = []
 
 ADMINS = ()
@@ -26,23 +27,22 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-LOGIN_URL = '/manager/login/'
-LOGOUT_URL = '/manager/logout/'
-LOGIN_REDIRECT_URL = '/'
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = [
 
+LOGIN_URL = '/manager/login/' # Modify for subdirectories
+LOGOUT_URL = '/manager/logout/' # Modify for subdirectories
+LOGIN_REDIRECT_URL = '/' # Modify for subdirectories
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static") # Comment out when using locally
+STATICFILES_DIRS = [
+    # Add static root path when debugging locally
 ]
 
 # Modify these values if hosting under subdirectory
 FORCE_SCRIPT_NAME = '/'
 CSRF_COOKIE_PATH = '/'
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = False # Should be set to true in production environments
+CSRF_COOKIE_SECURE = False # Should be set to true in production environments
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-USE_X_FORWARDED_HOST = True
-USE_X_FORWARDED_PORT = True
-USE_X_FORWARDED_PROTO = True
 
 # NET Domain LDAP CONFIG
 LDAP_NET_HOST = 'ldaps://you.ldap.com'

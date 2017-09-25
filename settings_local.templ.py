@@ -64,3 +64,70 @@ SUMMER_MONTH_START = 5
 SUMMER_MONTH_END = 7
 FALL_MONTH_START = 8
 FALL_MONTH_END = 12
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'filters': {
+        'require_debug_true': {
+            '()': 'logs.RequiredDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'logs.RequiredDebugFalse',
+        }
+    },
+    'formatters': {
+        'talkative': {
+            'format': '[%(asctime)s] %(levelname)s:%(module)s %(funcName)s %(lineno)d %(message)s'
+        },
+        'concise': {
+            'format': '%(levelname)s: %(message)s (%(asctime)s)'
+        }
+    },
+    'handlers': {
+        'discard': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'talkative',
+            'filters': ['require_debug_true']
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(PROJECT_FOLDER,'logs', 'application.log'),
+            'formatter': 'concise',
+            'filters': ['require_debug_false']
+        }
+    },
+    'loggers': {
+        'core': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'django': {
+            'handlers': ['discard'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'events': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'profiles': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'util': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING'
+        }
+    }
+}

@@ -99,7 +99,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(PROJECT_FOLDER,'logs', 'application.log'),
+            'filename': os.path.join(BASE_DIR,'logs', 'application.log'),
             'formatter': 'concise',
             'filters': ['require_debug_false']
         }

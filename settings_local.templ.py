@@ -26,8 +26,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-LOGIN_URL = '/login/'
-LOGOUT_URL = '/logout/'
+LOGIN_URL = '/manager/login/'
+LOGOUT_URL = '/manager/logout/'
 LOGIN_REDIRECT_URL = '/'
 
 
@@ -39,9 +39,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
 USE_X_FORWARDED_PROTO = True
-
-LOGIN_URL = '/manager/login/'
-LOGOUT_URL = '/manager/logout/'
 
 # NET Domain LDAP CONFIG
 LDAP_NET_HOST = 'ldaps://you.ldap.com'

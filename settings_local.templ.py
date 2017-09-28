@@ -6,6 +6,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Add allowed hosts
 ALLOWED_HOSTS = []
 
 ADMINS = ()
@@ -26,22 +27,22 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-LOGIN_URL = '/login/'
-LOGOUT_URL = '/logout/'
-LOGIN_REDIRECT_URL = '/'
 
+LOGIN_URL = '/manager/login/' # Modify for subdirectories
+LOGOUT_URL = '/manager/logout/' # Modify for subdirectories
+LOGIN_REDIRECT_URL = '/' # Modify for subdirectories
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static") # Comment out when using locally
+STATICFILES_DIRS = [
+    # Add static root path when debugging locally
+]
 
 # Modify these values if hosting under subdirectory
 FORCE_SCRIPT_NAME = '/'
 CSRF_COOKIE_PATH = '/'
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = False # Should be set to true in production environments
+CSRF_COOKIE_SECURE = False # Should be set to true in production environments
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-USE_X_FORWARDED_HOST = True
-USE_X_FORWARDED_PORT = True
-USE_X_FORWARDED_PROTO = True
-
-LOGIN_URL = '/manager/login/'
-LOGOUT_URL = '/manager/logout/'
 
 # NET Domain LDAP CONFIG
 LDAP_NET_HOST = 'ldaps://you.ldap.com'
@@ -67,3 +68,70 @@ SUMMER_MONTH_START = 5
 SUMMER_MONTH_END = 7
 FALL_MONTH_START = 8
 FALL_MONTH_END = 12
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'filters': {
+        'require_debug_true': {
+            '()': 'logs.RequiredDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'logs.RequiredDebugFalse',
+        }
+    },
+    'formatters': {
+        'talkative': {
+            'format': '[%(asctime)s] %(levelname)s:%(module)s %(funcName)s %(lineno)d %(message)s'
+        },
+        'concise': {
+            'format': '%(levelname)s: %(message)s (%(asctime)s)'
+        }
+    },
+    'handlers': {
+        'discard': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'talkative',
+            'filters': ['require_debug_true']
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR,'logs', 'application.log'),
+            'formatter': 'concise',
+            'filters': ['require_debug_false']
+        }
+    },
+    'loggers': {
+        'core': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'django': {
+            'handlers': ['discard'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'events': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'profiles': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'util': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING'
+        }
+    }
+}

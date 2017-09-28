@@ -123,6 +123,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+<<<<<<< HEAD
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -133,6 +134,8 @@ STATICFILES_DIRS = [
 
 ]
 
+=======
+>>>>>>> master
 try:
     from settings_local import *
 except ImportError:

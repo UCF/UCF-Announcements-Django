@@ -5,6 +5,7 @@ from argparse import FileType
 from bs4 import BeautifulSoup as BS
 from datetime import datetime
 from markdown import markdown
+from bleach import linkify
 
 class Command(BaseCommand):
     help = 'Imports announcements from a WordPress export file.'
@@ -27,6 +28,7 @@ class Command(BaseCommand):
 
             title = item.title.get_text()
             description = markdown(item.encoded.get_text())
+            description = linkify(description)
             slug = item.post_name.get_text()
             audience = keywords = []
             for cat in item.find_all('category', {'domain': 'audienceroles'}):

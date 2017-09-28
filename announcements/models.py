@@ -10,6 +10,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from taggit.managers import TaggableManager
 
+from bleach import linkify
+
 from rest_framework.authtoken.models import Token
 
 import settings
@@ -130,6 +132,9 @@ class Announcement(models.Model):
         """
         if not self.id or self.slug is None:
             self.slug = self.unique_slug(self.title)
+
+        if self.description:
+            self.description  = linkify(self.description)
 
         super(Announcement, self).save(*args, **kwargs)
 

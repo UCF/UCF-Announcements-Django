@@ -34,9 +34,14 @@ function initDatepickers($) {
   }
 }
 
+function initMaskedInput($) {
+  $('.phone-number').mask('(999) 999-9999');
+}
+
 if (jQuery !== 'undefined') {
   jQuery(document).ready(($) => {
     showNewUserModal($);
     initDatepickers($);
+    initMaskedInput($);
   });
 }

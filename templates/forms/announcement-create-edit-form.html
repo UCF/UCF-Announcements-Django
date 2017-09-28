@@ -53,7 +53,7 @@
         </div>
         <div class="col">
             <label for="{{ form.contact_phone.id_for_label }}">{{ form.contact_phone.label }}</label>
-            {% render_field form.contact_phone type="tel" class="form-control" %}
+            {% render_field form.contact_phone type="tel" class="form-control phone-number" %}
             <p class="py-1 text-muted">{{ form.contact_phone.help_text}}</p>
         </div>
         <div class="col">

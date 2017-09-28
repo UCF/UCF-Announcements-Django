@@ -1,12 +1,13 @@
 <header>
     {% if header_menu_items %}
-    <nav class="navbar navbar-toggleable-md navbar-light pt-4 pb-2" id="header-nav-wrap" role="navigation">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#header-menu" aria-controls="header-menu" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-        <div id="header-menu" class="collapse navbar-collapse">
-            <div class="container">
-                <ul class="nav navbar-nav nav-fill w-100">
+    <nav class="navbar navbar-toggleable-md navbar-custom navbar-inverse py-2 py-sm-4 bg-default" id="header-nav-wrap" role="navigation">
+        <div class="container">
+            <button class="navbar-toggler ml-auto mr-0 collapsed" type="button" data-toggle="collapse" data-target="#header-menu" aria-controls="header-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-text">Navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="header-menu" class="collapse navbar-collapse" area-expanded="false">
+                <ul class="nav navbar-nav nav-fill">
                 {% for item in header_menu_items %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ item.url }}">{{ item.title }}</a>

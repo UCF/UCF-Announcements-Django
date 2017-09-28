@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css" integrity="sha256-vpKTO4Ob1M4bZ8RAvZvYMtinMz1XjH0QYdAO2861V9M=" crossorigin="anonymous" />
+{% endblock %}
 {% block header_nav %}
     {% include 'partials/_manager-header.html' %}
 {% endblock %}
@@ -7,5 +11,6 @@
 {% endblock %}
 {% block footer_scripts %}
   {{ block.super }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="{% static 'js/manager.min.js' %}"></script>
 {% endblock %}

@@ -23,8 +23,20 @@ function showNewUserModal($) {
   $newUserModal.on('hide.bs.modal', confirmNewUser);
 }
 
+function initDatepickers($) {
+  const testDate = document.createElement('input');
+  testDate.type = 'date';
+
+  if (testDate.type === 'text') {
+    $('.date-picker').datepicker({
+      dateFormat: 'yy-mm-dd'
+    });
+  }
+}
+
 if (jQuery !== 'undefined') {
   jQuery(document).ready(($) => {
     showNewUserModal($);
+    initDatepickers($);
   });
 }

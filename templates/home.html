@@ -28,7 +28,7 @@
       {% if announcements %}
       <div class="row">
         {% for item in announcements %}
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-4">
+        <div class="col-lg-6 mb-4">
           <div class="card h-100">
             <h2 class="h3 card-header">{{ item.title }}</h2>
             <div class="card-block">
@@ -64,7 +64,7 @@
       {% endif %}
     </div>
     <div class="col-lg-3">
-      <h2>Ongoing Announcements</h2>
+      <h2 class="h3">Ongoing Announcements</h2>
       {% if ongoing %}
       <ul class="list-unstyled">
         {% for item in ongoing %}

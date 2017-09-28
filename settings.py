@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'taggit_serializer',
     'widget_tweaks',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'markdown'
 ]
 
 MIDDLEWARE = [
@@ -128,7 +129,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
-    
+
 ]
 
 try:

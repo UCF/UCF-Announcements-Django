@@ -11,7 +11,11 @@
   <label class="mr-4" for="audience-filters">Filter by...</label>
   {% for aud in audiences %}
     {% if request.GET.audience %}
-      <a href="?audience={{ aud.name }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
+      {% if request.GET.audience == aud.name %}
+        <a href="{% url 'announcements.home' %}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
+      {% else %}
+        <a href="?audience={{ aud.name }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
+      {% endif %}
     {% else %}
     <a href="?audience={{ aud.name }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:'' }}">{{ aud.name }}</a>
     {% endif %}

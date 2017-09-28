@@ -14,8 +14,10 @@
 {% endblock %}
 {% block content_body %}
 <article>
-    {{ object.description|safe }}
-    <dl class="row">
+    <div class="mb-3">
+      {{ object.description|safe }}
+    </div>
+    <dl class="row mb-4">
     {% if object.url %}
         <dt class="col-md-3">URL:</dt>
         <dd class="col-md-9">
@@ -34,4 +36,5 @@
         <dd class="col-md-9">{{ object.posted_by }}</dd>
     </dl>
 </article>
+<a class="btn btn-default mb-4" href="{% url 'announcements.home' %}"><span class="fa fa-arrow-left"></span> Back to Announcements</a>
 {% endblock %}

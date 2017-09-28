@@ -23,8 +23,25 @@ function showNewUserModal($) {
   $newUserModal.on('hide.bs.modal', confirmNewUser);
 }
 
+function initDatepickers($) {
+  const testDate = document.createElement('input');
+  testDate.type = 'date';
+
+  if (testDate.type === 'text') {
+    $('.date-picker').datepicker({
+      dateFormat: 'yy-mm-dd'
+    });
+  }
+}
+
+function initMaskedInput($) {
+  $('.phone-number').mask('(999) 999-9999');
+}
+
 if (jQuery !== 'undefined') {
   jQuery(document).ready(($) => {
     showNewUserModal($);
+    initDatepickers($);
+    initMaskedInput($);
   });
 }

@@ -26,3 +26,9 @@
       }
     }
 }
+
+.audience-list {
+    [type="checkbox"] {
+        @extend .form-check-input;
+    }
+}

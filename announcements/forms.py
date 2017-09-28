@@ -16,7 +16,7 @@ class AnnouncementForm(forms.ModelForm):
             'audience': 'Used for identifying the intended audience of this announcement',
             'start_date': 'When the announcement should begin appearing in feeds and emails',
             'end_date': 'When the announcement should stop appearing in feeds and emails',
-            'url': 'A url where additional information realted to your announcement can be found',
+            'url': 'A url where additional information related to your announcement can be found',
             'contact_name': 'The name of the person or organization who can be contacted regarding this announcement',
             'contact_phone': 'The phone number of the contact person or organization',
             'contact_email': 'The email address of the contact person or organization',

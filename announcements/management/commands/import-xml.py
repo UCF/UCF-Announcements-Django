@@ -4,6 +4,8 @@ from announcements.models import *
 from argparse import FileType
 from bs4 import BeautifulSoup as BS
 from datetime import datetime
+from markdown import markdown
+from bleach import linkify
 
 class Command(BaseCommand):
     help = 'Imports announcements from a WordPress export file.'
@@ -25,7 +27,8 @@ class Command(BaseCommand):
                 continue
 
             title = item.title.get_text()
-            description = item.encoded.get_text()
+            description = markdown(item.encoded.get_text())
+            description = linkify(description)
             slug = item.post_name.get_text()
             audience = keywords = []
             for cat in item.find_all('category', {'domain': 'audienceroles'}):
@@ -43,7 +46,7 @@ class Command(BaseCommand):
 
                 if meta_key == 'announcement_start_date':
                     start_date = datetime.strptime(meta_value, '%Y-%m-%d')
-                
+
                 if meta_key == 'announcement_end_date':
                     end_date = datetime.strptime(meta_value, '%Y-%m-%d')
 
@@ -55,7 +58,7 @@ class Command(BaseCommand):
 
                 if meta_key == 'announcement_email':
                     contact_email = meta_value
-                
+
                 if meta_key == 'announcement_phone':
                     contact_phone = meta_value
 
@@ -89,9 +92,8 @@ class Command(BaseCommand):
                         new_item.audience.add(i)
                     except Audience.DoesNotExist:
                         continue
-                        
+
 
             except Exception, ex:
                 print ex.message
                 continue
-            

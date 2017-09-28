@@ -14,7 +14,11 @@
     </div>
     <div class="form-group">
         <label for="{{ form.audience.id_for_label }}">{{ form.audience.label }}</label>
-        {{ form.audience|add_class:"form-check-input" }}
+        <ul class="audience-list list-unstyled pl-5">
+        {% for cb in form.audience %}
+          <li>{{cb}}</li>
+        {% endfor %}
+        </ul>
         <p class="py-1 text-muted">{{ form.audience.help_text}}</p>
     </div>
     <div class="form-group row">

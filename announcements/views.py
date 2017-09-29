@@ -128,10 +128,37 @@ class EditAnnouncement(UpdateView):
 
 class AnnouncementListAPIView(APIView):
     def get(self, request, format=None):
-        announcements = Announcement.objects.this_week()
+        announcements = self.get_queryset()
         serializer = AnnouncementSerializer(announcements, many=True)
         return Response(serializer.data)
 
+
+    def get_queryset(self):
+        time = self.request.query_params.get('time', None)
+        exclude_ongoing = self.request.query_params.get('exclude_ongoing', False)
+        audience = self.request.query_params.get('audience', None)
+
+        queryset = Announcement.objects.all()
+
+        if time is not None:
+            if time == 'time_week':
+                queryset = Announcement.objects.this_week()
+            if time == 'ongoing':
+                queryset = Announcement.objects.ongoing()
+            elif time == 'upcoming':
+                queryset = Announcement.objects.upcoming()
+            else:
+                queryset = Announcement.objects.this_week()
+        else:
+            queryset = Announcement.objects.this_week()
+        
+        if audience is not None:
+            queryset = queryset.filter(audience__name=audience)
+
+        if exclude_ongoing:
+            queryset = set(queryset) - set(Announcement.objects.ongoing())
+
+        return queryset
 
 class AnnouncementSyndicateView(CreateAPIView):
     serializer_class = AnnouncementSerializer

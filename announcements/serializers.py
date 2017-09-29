@@ -19,7 +19,7 @@ class AnnouncementSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Announcement
-        fields = ('id', 'title', 'description', 'audience', 'keywords', 'start_date', 'end_date', 'url', 'contact_name', 'contact_phone', 'contact_email', 'posted_by', 'status')
+        fields = ('id', 'title', 'description', 'audience', 'keywords', 'start_date', 'end_date', 'url', 'contact_name', 'contact_phone', 'contact_email', 'posted_by', 'status', 'slug', 'permalink')
 
     def perform_create(self, validated_data):
         serializer.save(author=self.request.user)

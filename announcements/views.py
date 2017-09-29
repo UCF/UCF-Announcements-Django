@@ -141,7 +141,7 @@ class AnnouncementListAPIView(APIView):
         queryset = Announcement.objects.all()
 
         if time is not None:
-            if time == 'time_week':
+            if time == 'this-week':
                 queryset = Announcement.objects.this_week()
             if time == 'ongoing':
                 queryset = Announcement.objects.ongoing()

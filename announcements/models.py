@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import datetime
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.urls import reverse_lazy
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -162,6 +163,9 @@ class Announcement(models.Model):
             return True
         else:
             return False
+
+    def permalink(self):
+        return reverse_lazy('announcements.detail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title

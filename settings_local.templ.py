@@ -69,6 +69,8 @@ SUMMER_MONTH_END = 7
 FALL_MONTH_START = 8
 FALL_MONTH_END = 12
 
+GTM_ID = ''
+
 # Logging
 LOGGING = {
     'version': 1,

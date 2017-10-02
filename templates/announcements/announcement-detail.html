@@ -1,5 +1,7 @@
 {% extends 'front-end-base.html' %}
 {% load announcements %}
+{% block title %}{{ object.title }} - University of Central Florida{% endblock %}
+{% block meta_description %}{{ object.start_date }} - {{ object.title }} - University of Central Florida{% endblock %}
 {% block content_header %}
 <div class="row mb-4">
     <div class="col self-align-left">

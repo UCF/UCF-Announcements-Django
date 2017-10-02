@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sitemaps',
     'django.contrib.staticfiles',
     'announcements',
     'taggit',
@@ -31,7 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'markdown',
-    'bleach'
+    'bleach',
 ]
 
 MIDDLEWARE = [

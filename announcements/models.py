@@ -67,6 +67,13 @@ class AnnouncementManager(models.Manager):
         next_sunday = last_monday + datetime.timedelta(days=6)
         return self.filter(start_date__gte=next_sunday, status='Publish')
 
+    def active(self):
+        """
+        Returns announcements that are active
+        """
+        today = datetime.date.today()
+        return self.filter(start_date__lte=today, end_date__gte=today, status='Publish')
+
     def owned_by(self, user=None, future=True):
         """
         Returns events owned by the user
@@ -164,8 +171,12 @@ class Announcement(models.Model):
         else:
             return False
 
-    def permalink(self):
+    def get_absolute_url(self):
         return reverse_lazy('announcements.detail', kwargs={'slug': self.slug})
+
+    @property
+    def permalink(self):
+        return self.get_absolute_url()
 
     def __str__(self):
         return self.title

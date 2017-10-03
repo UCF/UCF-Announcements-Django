@@ -158,7 +158,7 @@ class DeleteAnnouncement(DeleteView):
         if obj.is_owner(self.request.user):
             return super(DeleteAnnouncement, self).get(*args, **kwargs)
         else:
-            return reverse_lazy('announcements.manager')
+            return redirect( reverse_lazy( 'announcements.manager' ), True )
 
 # API Views
 

@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.sitemaps import Sitemap
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 
 from rest_framework.views import APIView
@@ -34,6 +35,29 @@ class RemoteMenuMixin(object):
         context['footer_menu_items'] = footer_menu_items
 
         return context
+
+class StaticSiteMap(Sitemap):
+    priority = 0.5;
+    changefreq = 'daily'
+
+    def items(self):
+        return ['announcements.home']
+
+    def lastmod(self, obj):
+        return datetime.date.today()
+
+    def location(self, item):
+        return reverse(item)
+
+class AnnouncementSiteMap(Sitemap):
+    changefreq = 'daily'
+    priority = 0.5
+
+    def items(self):
+        return Announcement.objects.active()
+
+    def lastmod(self, obj):
+        return obj.start_date
 
 class LogoutView(View):
     def get(self, request):
@@ -151,7 +175,7 @@ class AnnouncementListAPIView(APIView):
                 queryset = Announcement.objects.this_week()
         else:
             queryset = Announcement.objects.this_week()
-        
+
         if audience is not None:
             queryset = queryset.filter(audience__name=audience)
 

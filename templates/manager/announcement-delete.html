@@ -1,0 +1,21 @@
+{% extends 'manager/manager-base.html' %}
+{% load static %}
+{% block title %}Delete Announcement | {{ block.super }} Admin {% endblock %}
+{% block content_header %}{% endblock %}
+{% block content_body %}
+    <h1 class="h2 heading-underline">Delete Announcement</h1>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Error: </strong>
+        <ul class="errors">
+            {% for error in form.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.title }}"?</p>
+        <input class="btn btn-lg btn-danger" type="submit" value="Confirm" />
+    </form>
+{% endblock %}

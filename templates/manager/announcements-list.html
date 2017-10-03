@@ -32,7 +32,10 @@
             {% for item in published %}
                 <tr>
                     <td>{{ item.title }}</td>
-                    <td><a href="{% url 'announcements.manager.edit' slug=item.slug %}" class="btn btn-warning"><span class="fa fa-pencil"></span> Edit</a>
+                    <td>
+                        <a href="{% url 'announcements.manager.edit' slug=item.slug %}" class="btn btn-warning"><span class="fa fa-pencil"></span> Edit</a>
+                        <a href="{% url 'announcements.manager.delete' slug=item.slug %}" class="btn btn-danger"><span class="fa fa-trash"></span> Delete</a>
+                    </td>
             {% endfor %}
             </tbody>
         </table>
@@ -51,7 +54,12 @@
             {% for item in pending %}
                 <tr>
                     <td>{{ item.title }}</td>
-                    <td><a href="{% url 'announcements.manager.edit' slug=item.slug %}" class="btn btn-warning"><span class="fa fa-pencil"></span> Edit</a>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{% url 'announcements.manager.edit' slug=item.slug %}" class="btn btn-warning"><span class="fa fa-pencil"></span> Edit</a>
+                            <a href="{% url 'announcements.manager.delete' slug=item.slug %}" class="btn btn-danger"><span class="fa fa-trash"></span> Delete</a>
+                        </div>
+                    </td>
             {% endfor %}
             </tbody>
         </table>

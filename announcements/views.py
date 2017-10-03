@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, DetailView, View
+from django.views.generic import TemplateView, DetailView, View, DeleteView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.sitemaps import Sitemap
 from django.contrib.auth import logout
@@ -147,6 +147,18 @@ class EditAnnouncement(UpdateView):
         kwargs = super(EditAnnouncement, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
+
+class DeleteAnnouncement(DeleteView):
+    model = Announcement
+    template_name = 'manager/announcement-delete.html'
+    success_url = reverse_lazy('announcements.manager')
+
+    def get(self, *args, **kwargs):
+        obj = self.get_object()
+        if obj.is_owner(self.request.user):
+            return super(DeleteAnnouncement, self).get(*args, **kwargs)
+        else:
+            return redirect( reverse_lazy( 'announcements.manager' ), True )
 
 # API Views
 

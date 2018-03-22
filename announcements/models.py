@@ -116,7 +116,7 @@ class Announcement(models.Model):
     slug = models.SlugField(max_length=128, null=False, blank=True, unique=True)
     description = models.TextField(null=False, blank=False)
     audience = models.ManyToManyField(Audience, related_name='announcements')
-    keywords = TaggableManager()
+    keywords = TaggableManager(blank=True)
     start_date = models.DateField(null=False, blank=False)
     end_date = models.DateField(null=False, blank=False)
     url = models.URLField(null=True, blank=True)

@@ -46,7 +46,7 @@ class AnnouncementManager(models.Manager):
         today = datetime.date.today()
         last_monday = today - datetime.timedelta(days=today.weekday())
         next_sunday = last_monday + datetime.timedelta(days=6)
-        return self.filter(start_date__lte=next_sunday, end_date__gte=last_monday, status='Publish')
+        return self.filter(start_date__lte=next_sunday, end_date__gte=today, status='Publish')
 
     def ongoing(self):
         """

@@ -7,6 +7,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div id="header-menu" class="collapse navbar-collapse" aria-expanded="false">
+                {% if header_menu_items %}
                 <ul class="nav navbar-nav nav-fill">
                 {% for item in header_menu_items %}
                     <li class="nav-item">
@@ -14,6 +15,7 @@
                     </li>
                 {% endfor %}
                 </ul>
+                {% endif %}
             </div>
         </div>
     </nav>

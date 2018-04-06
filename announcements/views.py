@@ -127,8 +127,7 @@ class CreateAnnouncement(CreateView):
     # Set posted_by and status automatically
     def get_context_data(self, *args):
         context = super(CreateAnnouncement, self).get_context_data(*args)
-        keyword_url = util.get_home_url(self.request)
-        context['keyword_url'] = keyword_url
+        context['canonical_url'] = settings.CANONICAL_ROOT
 
         return context
 
@@ -153,8 +152,7 @@ class EditAnnouncement(UpdateView):
     # Set posted_by and status automatically
     def get_context_data(self, *args):
         context = super(CreateAnnouncement, self).get_context_data(*args)
-        keyword_url = util.get_home_url(self.request)
-        context['keyword_url'] = keyword_url
+        context['canonical_url'] = settings.CANONICAL_ROOT
 
         return context
 

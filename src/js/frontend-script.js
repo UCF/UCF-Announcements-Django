@@ -5,7 +5,7 @@ function tagsInput($) {
     },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-      url: `${ANNOUNCEMENT_CONST.API_KEYWORDS}/?s=%QUERY&format=json`,
+      url: `${keyword_url}/?s=%QUERY&format=json`,
       wildcard: '%QUERY'
     }
   });

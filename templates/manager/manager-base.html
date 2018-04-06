@@ -4,9 +4,7 @@
   {{ block.super }}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css" integrity="sha256-vpKTO4Ob1M4bZ8RAvZvYMtinMz1XjH0QYdAO2861V9M=" crossorigin="anonymous" />
   <script>
-    var ANNOUNCEMENT_CONST = {
-      API_KEYWORDS: '{{ keyword_url }}'
-    };
+    var keyword_url = '{{ keyword_url }}{% url "announcements.api.keywords" %}';
   </script>
 {% endblock %}
 {% block header_nav %}

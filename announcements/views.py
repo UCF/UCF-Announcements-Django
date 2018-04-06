@@ -125,6 +125,13 @@ class CreateAnnouncement(CreateView):
     success_url = reverse_lazy('announcements.manager')
 
     # Set posted_by and status automatically
+    def get_context_data(self, *args):
+        context = super(CreateAnnouncement, self).get_context_data(*args)
+        keyword_url = util.get_home_url(self.request)
+        context['keyword_url'] = keyword_url
+
+        return context
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         if not self.request.user.is_superuser:
@@ -142,6 +149,14 @@ class EditAnnouncement(UpdateView):
     form_class = AnnouncementForm
     template_name = 'manager/announcement-edit.html'
     success_url = reverse_lazy('announcements.manager')
+
+    # Set posted_by and status automatically
+    def get_context_data(self, *args):
+        context = super(CreateAnnouncement, self).get_context_data(*args)
+        keyword_url = util.get_home_url(self.request)
+        context['keyword_url'] = keyword_url
+
+        return context
 
     def get_form_kwargs(self):
         kwargs = super(EditAnnouncement, self).get_form_kwargs()

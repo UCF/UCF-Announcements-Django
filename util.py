@@ -4,6 +4,8 @@ import logging, settings
 from django.conf import settings
 import ldap
 
+from django.urls import reverse
+
 import urllib, json
 
 def get_header_menu_items():
@@ -24,6 +26,12 @@ def get_footer_menu_items():
 
 def get_social_menu_items():
     pass
+
+def get_home_url(request):
+    scheme = request.scheme
+    domain = request.META['HTTP_HOST']
+
+    return "{}://{}{}".format(scheme, domain, reverse('announcements.api.keywords'))
 
 class LDAPHelper(object):
 

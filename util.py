@@ -27,12 +27,6 @@ def get_footer_menu_items():
 def get_social_menu_items():
     pass
 
-def get_home_url(request):
-    scheme = request.scheme
-    domain = request.META['HTTP_HOST']
-
-    return "{}://{}{}".format(scheme, domain, reverse('announcements.api.keywords'))
-
 class LDAPHelper(object):
 
     class LDAPHelperException(Exception):

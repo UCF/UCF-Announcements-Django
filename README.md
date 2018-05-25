@@ -18,6 +18,10 @@ Django application for managing and displaying UCF-Announcements.
 
 ## Changelog
 
+### v1.0.4
+Bug Fixes:
+* Fixed issue with announcement descriptions in cards being truncated without accounting for inner HTML
+
 ### v1.0.3
 Bug Fixes:
 * Updated default main site header/footer URLs

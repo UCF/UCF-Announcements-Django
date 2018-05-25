@@ -9,18 +9,22 @@ import urllib, json
 def get_header_menu_items():
     response = urllib.urlopen(settings.REMOTE_MENU_HEADER)
     data = json.loads(response.read())
-    if data['items']:
-        return data['items']
+    try:
+        items = data['items']
+    except Exception, e:
+        items = None
 
-    return None
+    return items
 
 def get_footer_menu_items():
     response = urllib.urlopen(settings.REMOTE_MENU_FOOTER)
     data = json.loads(response.read())
-    if data['items']:
-        return data['items']
+    try:
+        items = data['items']
+    except Exception, e:
+        items = None
 
-    return None
+    return items
 
 def get_social_menu_items():
     pass

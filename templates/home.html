@@ -34,7 +34,7 @@
           <div class="card h-100">
             <h2 class="h4 card-header">{{ item.title }}</h2>
             <div class="card-block">
-              <p>{{ item.description|safe|truncatewords:25 }}</p>
+              <p>{{ item.description|safe|truncatewords_html:25 }}</p>
               <dl>
                 <dt>Audience: </dt>
                 <dd>

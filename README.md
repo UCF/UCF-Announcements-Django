@@ -18,6 +18,17 @@ Django application for managing and displaying UCF-Announcements.
 
 ## Changelog
 
+### v1.0.3
+Bug Fixes:
+* Updated default main site header/footer URLs
+* Suppressed exception when `data['items']` is not set when fetching/assigning menu data
+* Fixed incorrect item values for menu link URLs; header/footer links should now link to their correct locations
+* Added explicit mimetype declaration to robots.txt view to prevent it from being served as text/html
+
+### v1.0.2
+Bug Fixes:
+* Updated keywords field to not be required.
+
 ### v1.0.1
 Bug Fixes:
 * Fixes [#10](https://github.com/UCF/UCF-Announcements-Django/issues/10) by implementing Main-Site-Theme v3.0.0 styles for navigation.

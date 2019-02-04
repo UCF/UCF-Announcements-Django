@@ -1,6 +1,44 @@
 # UCF-Announcements
 Django application for managing and displaying UCF-Announcements.
 
+## Prerequisites
+
+The `python-ldap` module requires a number of prerequisites to be installed before it can be installed via `pip` in step 5 below.
+
+### Mac OSX
+
+1. [Xcode needs to be installed](https://developer.apple.com/xcode/).
+2. The xcode command line tools need to be installed: `xcode-select --install`.
+3. Openldap can be installed via homebrew: `brew install openldap`.
+4. If running OSX 10.14.0 (Mojave) or above, the following arguments may need to be added to the `pip` command:
+
+```
+pip install -r requirements.txt \
+--global-option=build_ext \
+--global-option="-I$(xcrun --show-sdk-path)/usr/include/sasl"
+```
+
+### Debian (Ubuntu)
+
+1. Install prerequisite packages:
+
+```
+apt-get install build-essential python3-dev python2.7-dev \
+    libldap2-dev libsasl2-dev slapd ldap-utils python-tox \
+    lcov valgrind
+```
+2. Run pip install normally after following steps 1-4 below: `pip install -r requirements.txt`.
+
+### Centos
+
+1. Install prerequisites via `yum`:
+
+```
+yum groupinstall "Development tools"
+yum install openldap-devel python-devel
+```
+2. Run pip install normally after following steps 1-4 below: `pip install -r requirements.txt`.
+
 ## Installation and Setup
 
 1. Install virtual environment: `pip install virtualenv`

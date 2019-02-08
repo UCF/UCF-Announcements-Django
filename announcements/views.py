@@ -9,7 +9,7 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status
@@ -195,6 +195,10 @@ class AnnouncementListAPIView(APIView):
             queryset = set(queryset) - set(Announcement.objects.ongoing())
 
         return queryset
+
+class AnnouncementDetailAPIView(RetrieveAPIView):
+    serializer_class = AnnouncementSerializer
+    queryset = Announcement.objects.all()
 
 class AnnouncementSyndicateView(CreateAPIView):
     serializer_class = AnnouncementSerializer

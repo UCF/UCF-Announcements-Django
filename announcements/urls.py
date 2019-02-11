@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^manager/confirm-new-user[/]?$', confirm_user_view, name='announcements.manager.confirmuser'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/announcements[/]?$', AnnouncementListAPIView.as_view(), name="announcements.api.list"),
+    url(r'^api/announcements/(?P<pk>\d+)[/]?', AnnouncementDetailAPIView.as_view(), name="announcements.api.detail"),
     url(r'^api/keywords[/]?$', KeywordListAPIView.as_view(), name="announcements.api.keywords"),
     url(r'^api/syndicate[/]?$', AnnouncementSyndicateView.as_view(), name="announcements.api.syndicate"),
     url(r'^(?P<slug>[-\w]+)/', AnnouncementDetail.as_view(), name="announcements.detail"),

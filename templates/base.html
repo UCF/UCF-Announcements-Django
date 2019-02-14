@@ -28,6 +28,11 @@
         </main>
         {% block footer %}{% endblock %}
     {% block footer_scripts %}
+    <script type="text/javascript">
+      var ANNOUNCEMENTS_CONST = {
+        KEYWORDS_API: "{% url 'announcements.api.keywords' %}"
+      };
+    </script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js" integrity="sha256-tQ3x4V2JW+L0ew/P3v2xzL46XDjEWUExFkCDY0Rflqc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>

@@ -1,7 +1,7 @@
 function confirmNewUser() {
-  const $urlInput = $('#confirmUserURL'),
-    url = $urlInput.val(),
-    $token = $('input[name="csrfmiddlewaretoken"]');
+  const $urlInput = $('#confirmUserURL');
+  const url = $urlInput.val();
+  const $token = $('input[name="csrfmiddlewaretoken"]');
 
   $.post(
     url,
@@ -12,9 +12,9 @@ function confirmNewUser() {
 }
 
 function showNewUserModal($) {
-  const $hfShowModal = $('#showNewUserModal'),
-    $newUserModal = $('#newUserModal'),
-    showModal = $hfShowModal ? $hfShowModal.val() : false;
+  const $hfShowModal = $('#showNewUserModal');
+  const $newUserModal = $('#newUserModal');
+  const showModal = $hfShowModal ? $hfShowModal.val() : false;
 
   if (showModal === 'True') {
     $newUserModal.modal();

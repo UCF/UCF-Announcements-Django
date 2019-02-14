@@ -56,6 +56,16 @@ yum install openldap-devel python-devel
 
 ## Changelog
 
+### v1.0.5
+Enhancements:
+* Added detail view for announcements
+* Updated Django
+* Updated documentation with more detailed installation instructions
+
+Bug Fixes:
+* Updated home tempalte to fix audience links bug
+* Removed hard coded URL in the javascript for the announcements create/edit form.
+
 ### v1.0.4
 Bug Fixes:
 * Fixed issue with announcement descriptions in cards being truncated without accounting for inner HTML

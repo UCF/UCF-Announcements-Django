@@ -8,7 +8,8 @@
   },
   "globals": {
     "Bloodhound": true,
-    "tinymce": true
+    "tinymce": true,
+    "ANNOUNCEMENTS_CONST": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {

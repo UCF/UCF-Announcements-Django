@@ -16,10 +16,10 @@
       {% if request.GET.audience == aud.name %}
         <a href="{% url 'announcements.home' %}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
       {% else %}
-        <a href="?audience={{ aud.name }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
+        <a href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
       {% endif %}
     {% else %}
-    <a href="?audience={{ aud.name }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:'' }}">{{ aud.name }}</a>
+    <a href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:'' }}">{{ aud.name }}</a>
     {% endif %}
   {% endfor %}
 </div>

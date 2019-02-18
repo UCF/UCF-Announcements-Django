@@ -63,7 +63,7 @@ Enhancements:
 * Updated documentation with more detailed installation instructions
 
 Bug Fixes:
-* Updated home tempalte to fix audience links bug
+* Updated home template to fix audience links bug
 * Removed hard coded URL in the javascript for the announcements create/edit form.
 
 ### v1.0.4

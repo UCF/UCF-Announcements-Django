@@ -9,7 +9,7 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,6 +20,7 @@ from announcements.decorators import user_is_authorized_editor
 from announcements.models import *
 from announcements.forms import *
 from announcements.serializers import *
+from announcements.filters import *
 
 import util
 
@@ -162,12 +163,10 @@ class DeleteAnnouncement(DeleteView):
 
 # API Views
 
-class AnnouncementListAPIView(APIView):
-    def get(self, request, format=None):
-        announcements = self.get_queryset()
-        serializer = AnnouncementSerializer(announcements, many=True)
-        return Response(serializer.data)
-
+class AnnouncementListAPIView(ListAPIView):
+    queryset = Announcement.objects.all()
+    serializer_class = AnnouncementSerializer
+    filter_class = AnnouncementFilter
 
     def get_queryset(self):
         time = self.request.query_params.get('time', None)
@@ -191,8 +190,8 @@ class AnnouncementListAPIView(APIView):
         if audience is not None:
             queryset = queryset.filter(audience__name=audience)
 
-        if exclude_ongoing:
-            queryset = set(queryset) - set(Announcement.objects.ongoing())
+        if exclude_ongoing and Announcement.objects.ongoing().count() > 0:
+            queryset = queryset.exclude(pk=Announcement.objects.ongoing())
 
         return queryset
 

@@ -9,7 +9,9 @@ django-cors-headers==2.0.2
 django-taggit==0.22.0
 django-taggit-serializer==0.1.5
 django-widget-tweaks==1.4.1
+django-filters==0.2.1
 djangorestframework==3.6.2
+drf-dynamic-fields==0.3.0
 gunicorn==19.7.1
 html5lib==0.999999999
 lxml==3.7.3

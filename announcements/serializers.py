@@ -75,6 +75,7 @@ class AnnouncementSerializer(DynamicFieldSetMixin, serializers.ModelSerializer):
         fields = ('id', 'title', 'description', 'audience', 'keywords', 'start_date', 'end_date', 'url', 'contact_name', 'contact_phone', 'contact_email', 'posted_by', 'status', 'slug', 'permalink')
         fieldsets = {
             "options": "id,title",
+            "minimal": "id,title,slug"
         }
 
     def perform_create(self, validated_data):

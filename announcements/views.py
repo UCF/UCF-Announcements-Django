@@ -191,7 +191,7 @@ class AnnouncementListAPIView(ListAPIView):
             queryset = queryset.filter(audience__name=audience)
 
         if exclude_ongoing and Announcement.objects.ongoing().count() > 0:
-            queryset = queryset.exclude(pk__in=Announcement.objects.ongoing().values_list('id', flat=True))
+            queryset = queryset.exclude(pk__in=Announcement.objects.ongoing().values_list('pk', flat=True))
 
         return queryset
 

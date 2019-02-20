@@ -56,6 +56,10 @@ yum install openldap-devel python-devel
 
 ## Changelog
 
+### v1.0.7
+Bug Fixes:
+* Corrected malformed subquery when excluding ongoing announcements. Fixes #33
+
 ### v1.0.6
 Enhancements:
 * Added ability to filter by field or fieldset on the Announcement serializer. This allows for specific fields, or a predefined set of fields. Currently there is only the `options` fieldset defined for announcements.

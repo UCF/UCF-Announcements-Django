@@ -24,14 +24,14 @@ function showNewUserModal($) {
 }
 
 function initDatepickers($) {
-  const testDate = document.createElement('input');
-  testDate.type = 'date';
-
-  if (testDate.type === 'text') {
-    $('.date-picker').datepicker({
-      dateFormat: 'yy-mm-dd'
-    });
-  }
+  $('.date-picker').each((i, input) => {
+    const $input = $(input);
+    if ($input.attr('type') === 'text') {
+      $input.datepicker({
+        dateFormat: 'yy-mm-dd'
+      });
+    }
+  });
 }
 
 function initMaskedInput($) {

@@ -56,6 +56,10 @@ yum install openldap-devel python-devel
 
 ## Changelog
 
+### v1.0.8
+Bug Fixes:
+* Corrected problem with date fields in the admin area.
+
 ### v1.0.7
 Bug Fixes:
 * Corrected malformed subquery when excluding ongoing announcements. Fixes #33

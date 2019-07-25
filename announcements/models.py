@@ -1,7 +1,7 @@
 """
 Specifies the announcement models
 """
-from __future__ import unicode_literals
+
 import datetime
 from django.contrib.auth.models import User
 from django.utils.text import slugify

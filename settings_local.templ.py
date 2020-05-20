@@ -115,27 +115,27 @@ LOGGING = {
     },
     'loggers': {
         'core': {
-            'handlers': ['discard', 'file'],
+            'handlers': ['console', 'file'],
             'propogate': True,
             'level': 'WARNING'
         },
         'django': {
-            'handlers': ['discard', 'console', 'file'],
+            'handlers': ['console', 'file'],
             'propogate': True,
             'level': 'WARNING'
         },
         'events': {
-            'handlers': ['discard', 'console', 'file'],
+            'handlers': ['console', 'file'],
             'propogate': True,
             'level': 'WARNING'
         },
         'profiles': {
-            'handlers': ['discard', 'console', 'file'],
+            'handlers': ['console', 'file'],
             'propogate': True,
             'level': 'WARNING'
         },
         'util': {
-            'handlers': ['discard', 'console', 'file'],
+            'handlers': ['console', 'file'],
             'level': 'WARNING'
         }
     }

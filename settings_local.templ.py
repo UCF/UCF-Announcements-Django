@@ -77,13 +77,13 @@ GTM_ID = ''
 # Logging
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'filters': {
         'require_debug_true': {
-            '()': 'logs.RequiredDebugTrue',
+            '()': 'django.utils.log.RequireDebugTrue',
         },
         'require_debug_false': {
-            '()': 'logs.RequiredDebugFalse',
+            '()': 'django.utils.log.RequireDebugFalse',
         }
     },
     'formatters': {
@@ -108,34 +108,34 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR,'logs', 'application.log'),
-            'formatter': 'concise',
+            'filename': os.path.join(BASE_DIR, 'logs', 'application.log'),
+            'formatter': 'talkative',
             'filters': ['require_debug_false']
         }
     },
     'loggers': {
         'core': {
-            'handlers': ['console', 'file'],
+            'handlers': ['discard', 'file'],
             'propogate': True,
             'level': 'WARNING'
         },
         'django': {
-            'handlers': ['discard'],
+            'handlers': ['discard', 'console', 'file'],
             'propogate': True,
             'level': 'WARNING'
         },
         'events': {
-            'handlers': ['console', 'file'],
+            'handlers': ['discard', 'console', 'file'],
             'propogate': True,
             'level': 'WARNING'
         },
         'profiles': {
-            'handlers': ['console', 'file'],
+            'handlers': ['discard', 'console', 'file'],
             'propogate': True,
             'level': 'WARNING'
         },
         'util': {
-            'handlers': ['console', 'file'],
+            'handlers': ['discard', 'console', 'file'],
             'level': 'WARNING'
         }
     }

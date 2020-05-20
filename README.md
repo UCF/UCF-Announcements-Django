@@ -56,6 +56,10 @@ yum install openldap-devel python-devel
 
 ## Changelog
 
+### v1.0.9
+Bug Fixes:
+* Made changes to the local settings template related to logging.
+
 ### v1.0.8
 Bug Fixes:
 * Corrected problem with date fields in the admin area.

@@ -56,6 +56,10 @@ yum install openldap-devel python-devel
 
 ## Changelog
 
+### v1.0.10
+Bug Fixes:
+* Fixed a bug where remote menus were not loading properly.
+
 ### v1.0.9
 Bug Fixes:
 * Made changes to the local settings template related to logging.

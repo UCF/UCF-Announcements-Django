@@ -11,8 +11,14 @@ def get_header_menu_items():
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
 
-    response = urllib.urlopen(settings.REMOTE_MENU_HEADER, context=ctx)
-    data = json.loads(response.read())
+    try:
+        response = urllib.urlopen(settings.REMOTE_MENU_HEADER, context=ctx)
+    except:
+        response = None
+
+    if response:
+        data = json.loads(response.read())
+
     try:
         items = data['items']
     except Exception, e:
@@ -25,8 +31,14 @@ def get_footer_menu_items():
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
 
-    response = urllib.urlopen(settings.REMOTE_MENU_FOOTER, context=ctx)
-    data = json.loads(response.read())
+    try:
+        response = urllib.urlopen(settings.REMOTE_MENU_FOOTER, context=ctx)
+    except:
+        response = None
+
+    if response:
+        data = json.loads(response.read())
+
     try:
         items = data['items']
     except Exception, e:

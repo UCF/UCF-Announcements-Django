@@ -4,11 +4,21 @@ import logging, settings
 from django.conf import settings
 import ldap
 
-import urllib, json
+import urllib, json, ssl
 
 def get_header_menu_items():
-    response = urllib.urlopen(settings.REMOTE_MENU_HEADER)
-    data = json.loads(response.read())
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+
+    try:
+        response = urllib.urlopen(settings.REMOTE_MENU_HEADER, context=ctx)
+    except:
+        response = None
+
+    if response:
+        data = json.loads(response.read())
+
     try:
         items = data['items']
     except Exception, e:
@@ -17,8 +27,18 @@ def get_header_menu_items():
     return items
 
 def get_footer_menu_items():
-    response = urllib.urlopen(settings.REMOTE_MENU_FOOTER)
-    data = json.loads(response.read())
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+
+    try:
+        response = urllib.urlopen(settings.REMOTE_MENU_FOOTER, context=ctx)
+    except:
+        response = None
+
+    if response:
+        data = json.loads(response.read())
+
     try:
         items = data['items']
     except Exception, e:

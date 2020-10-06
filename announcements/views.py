@@ -211,7 +211,7 @@ class KeywordListAPIView(APIView):
         s = request.query_params.get('s', None)
         keywords = None
         if s is not None:
-            keywords = Tag.objects.filter(name__contains=s)
+            keywords = Tag.objects.filter(name__icontains=s)
         else:
             keywords = Tag.objects.all()[:10]
 

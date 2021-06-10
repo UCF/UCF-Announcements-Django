@@ -1,4 +1,4 @@
-Django==1.11.18
+Django==2.2.24
 Markdown==2.6.9
 appdirs==1.4.3
 beautifulsoup4==4.5.3

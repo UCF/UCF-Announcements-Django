@@ -56,6 +56,10 @@ yum install openldap-devel python-devel
 
 ## Changelog
 
+### v1.0.12
+* Updated default character set and collation for database tables.
+### v1.0.11
+* Ensure taggit tags (used for announcement keywords) as case sensitive but are pulled via the typeahead control case insensitively.
 ### v1.0.10
 Bug Fixes:
 * Fixed a bug where remote menus were not loading properly.

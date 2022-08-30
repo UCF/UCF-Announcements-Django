@@ -1,3 +1,15 @@
 .main-content {
   min-height: calc(100vh - 350px);
 }
+
+.skip-navigation {
+  @include sr-only();
+  @include sr-only-focusable();
+
+  &:focus {
+    left: $spacer-x;
+    position: absolute;
+    top: calc(#{$ucf-header-height} + #{$spacer-y});
+    z-index: 4;
+  }
+}

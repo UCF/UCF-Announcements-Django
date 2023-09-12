@@ -74,6 +74,8 @@ FALL_MONTH_END = 12
 
 GTM_ID = ''
 
+DAYS_UNTIL_EXPIRED = 90
+
 # Logging
 LOGGING = {
     'version': 1,

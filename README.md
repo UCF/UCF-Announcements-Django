@@ -56,6 +56,12 @@ yum install openldap-devel python-devel
 
 ## Changelog
 
+### 1.0.14
+Enhancements:
+* Added expiration period to old announcements. Any past the expiration will be redirected to the home page.
+### 1.0.13
+Accessibility:
+* Added skip to content link at the top of the base template.
 ### v1.0.12
 * Updated default character set and collation for database tables.
 ### v1.0.11

@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'announcements',
     'taggit',
-    'taggit_serializer',
     'widget_tweaks',
     'rest_framework',
     'rest_framework.authtoken',
@@ -129,6 +128,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 try:
     from settings_local import *

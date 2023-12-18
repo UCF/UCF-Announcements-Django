@@ -18,6 +18,17 @@ pip install -r requirements.txt \
 --global-option="-I$(xcrun --show-sdk-path)/usr/include/sasl"
 ```
 
+### Container (Python:3.11-bookworm)
+
+1. Install prerequisite packages:
+```
+apt-get install libldap-dev build-essential
+```
+(If a header file is not available, apt-get install apt-file and then use apt-file and the header name to search for the missing package)
+
+2. Run pip install normally
+
+
 ### Debian (Ubuntu)
 
 1. Install prerequisite packages:

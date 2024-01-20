@@ -23,6 +23,6 @@ pyparsing==2.2.0
 python-ldap==3.2.0
 pytz==2019.1
 setproctitle==1.1.10
-six==1.10.0
+six==1.16.0
 sqlparse==0.4.4
 webencodings==0.5.1

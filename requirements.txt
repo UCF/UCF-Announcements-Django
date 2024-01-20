@@ -20,7 +20,7 @@ pyasn1==0.4.5
 pyasn1-modules==0.2.5
 pyldap==3.0.0.post1
 pyparsing==2.2.0
-python-ldap==3.2.0
+pythdeon-ldap==3.2.0
 pytz==2019.1
 setproctitle==1.1.10
 six==1.10.0

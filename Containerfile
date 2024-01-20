@@ -10,22 +10,17 @@ RUN apt-get clean && \
         libsasl2-dev \
         build-essential \
         npm -y 
-RUN pip install virtualenv
-RUN virtualenv announcements 
 
 WORKDIR /home/announcements
 RUN git clone https://github.com/UCF/UCF-Announcements-Django
 
 WORKDIR /home/announcements/UCF-Announcements-Django 
-RUN git switch python3-upgrade
-
-WORKDIR /home/announcements/bin
-ENV VIRTUAL_ENV=../../announcements
-RUN python3 -m virtualenv $VIRTUAL_ENV
+RUN git switch containerfile
 
 WORKDIR /home/announcements/UCF-Announcements-Django
 RUN pip install -r requirements.txt
 RUN npm install
+RUN cp settings_local.templ.py settings_local.py
 RUN python manage.py deploy
 
-CMD python manage.py runserver 0.0.0.0:8004
+CMD python manage.py runserver 0.0.0.0:8000

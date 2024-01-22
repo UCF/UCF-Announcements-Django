@@ -10,9 +10,10 @@ pipeline {
                     sh 'usermod -a -G docker jenkins'
                 }
                 def dockerHome = tool 'myDocker'
-                env.PATH = "${dockerHome}/bin:${env.PATH}"
-            }
-            
+                environment {
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+            }    
         }
          
          stage('Clone repository') { 

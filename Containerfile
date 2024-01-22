@@ -1,15 +1,18 @@
-FROM python:3.11-bookworm
-ENTRYPOINT ["/bin/bash"]
+FROM python:3.12.1-bookworm
 
 WORKDIR /home
 
+RUN echo "Acquire::http::Pipeline-Depth 0;" > /etc/apt/apt.conf.d/99custom && \
+    echo "Acquire::http::No-Cache true;" >> /etc/apt/apt.conf.d/99custom && \
+    echo "Acquire::BrokenProxy    true;" >> /etc/apt/apt.conf.d/99custom
 RUN apt-get clean && \ 
     apt-get update -y && \
     apt-get upgrade -y && \ 
     apt-get install -f libldap-dev \
         libsasl2-dev \
-        build-essential \
-        npm -y 
+        build-essential -y
+RUN apt-get autoremove
+RUN apt-get install npm -y 
 
 WORKDIR /home/announcements
 RUN git clone https://github.com/UCF/UCF-Announcements-Django
@@ -23,4 +26,4 @@ RUN npm install
 RUN cp settings_local.templ.py settings_local.py
 RUN python manage.py deploy
 
-CMD python manage.py runserver 0.0.0.0:8000
+CMD python manage.py runserver 0.0.0.0:8005

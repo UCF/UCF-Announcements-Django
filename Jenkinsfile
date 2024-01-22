@@ -7,7 +7,7 @@ pipeline {
         stage('Initialize'){
             steps {
                 scripts {
-                    sudo usermod -a -G docker jenkins
+                    sh 'usermod -a -G docker jenkins'
                 }
             }
             def dockerHome = tool 'myDocker'

@@ -23,7 +23,7 @@ RUN git switch containerfile
 WORKDIR /home/announcements/UCF-Announcements-Django
 RUN pip install -r requirements.txt
 RUN npm install
-RUN cp settings_local.templ.py settings_local.py
+RUN cp settings_local.dev.py settings_local.py
 RUN python manage.py deploy
 
 CMD python manage.py runserver 0.0.0.0:8005

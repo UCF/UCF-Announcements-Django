@@ -24,6 +24,7 @@ WORKDIR /home/announcements/UCF-Announcements-Django
 RUN pip install -r requirements.txt
 RUN npm install
 COPY settings_local.dev.py settings_local.py
-RUN python manage.py deploy
+RUN python manage.py migrate
+RUN python manage.py loaddata audience
 
 CMD python manage.py runserver 0.0.0.0:8005

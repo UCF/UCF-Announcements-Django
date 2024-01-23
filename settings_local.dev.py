@@ -32,7 +32,7 @@ LOGIN_URL = '/manager/login/' # Modify for subdirectories
 LOGOUT_URL = '/manager/logout/' # Modify for subdirectories
 LOGIN_REDIRECT_URL = '/' # Modify for subdirectories
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, "static") # Comment out when using locally
+STATIC_ROOT = os.path.join(BASE_DIR, "static") # Comment out when using locally
 STATICFILES_DIRS = [
     # Add static root path when debugging locally
     os.path.join(BASE_DIR, "static")

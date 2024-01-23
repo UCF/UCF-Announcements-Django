@@ -5,18 +5,18 @@ pipeline {
     }
     stages {
         stage('Initialize'){
-            steps {
-                scripts {
-                    sh 'usermod -a -G docker jenkins'
-                }
-                def dockerHome = tool 'myDocker'
                 environment {
                     env.PATH = "${dockerHome}/bin:${env.PATH}"
                 }
-            }    
+            steps {
+                def dockerHome = tool 'myDocker'
+                scripts {
+                    sh 'usermod -a -G docker jenkins'
+                }    
+            }
         }
          
-         stage('Clone repository') { 
+        stage('Clone repository') { 
             steps { 
                 script{
                 checkout scm

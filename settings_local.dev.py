@@ -7,9 +7,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DEBUG = True
 
 # Add allowed hosts
-ALLOWED_HOSTS = {
+ALLOWED_HOSTS = [
     ".awsapprunner.com"
-}
+]
 
 ADMINS = ()
 

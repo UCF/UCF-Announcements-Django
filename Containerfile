@@ -1,4 +1,10 @@
-FROM python:3.12.1-bookworm
+#Windows/Linux
+#FROM python:3.12.1-bookworm
+
+#Mac
+FROM amd64/python:3.12.1-bookworm
+
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
 
 WORKDIR /home
 
@@ -27,4 +33,4 @@ COPY settings_local.dev.py settings_local.py
 RUN python manage.py migrate
 RUN python manage.py loaddata audience
 
-CMD python manage.py runserver 0.0.0.0:8005
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8005"]

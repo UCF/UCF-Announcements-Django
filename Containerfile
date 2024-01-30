@@ -2,7 +2,11 @@
 #FROM python:3.12.1-bookworm
 
 #Mac
-FROM amd64/python:3.12.1-bookworm
+#FROM amd64/python:3.12.1-bookworm
+
+#Mac M1
+FROM arm64v8/python:latest
+
 WORKDIR /home
 
 RUN echo "Acquire::http::Pipeline-Depth 0;" > /etc/apt/apt.conf.d/99custom && \

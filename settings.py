@@ -14,7 +14,8 @@ import os
 
 # Allow hosts to host this application
 ALLOWED_HOSTS = {
-    ".awsapprunner.com"
+    ".awsapprunner.com",
+    "localhost"
 }
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

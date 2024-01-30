@@ -8,7 +8,8 @@ DEBUG = True
 
 # Add allowed hosts
 ALLOWED_HOSTS = [
-    ".awsapprunner.com"
+    ".awsapprunner.com",
+    "localhost"
 ]
 
 ADMINS = ()

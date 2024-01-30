@@ -3,9 +3,6 @@
 
 #Mac
 FROM amd64/python:3.12.1-bookworm
-
-ENTRYPOINT ["/bin/bash", "-l", "-c"]
-
 WORKDIR /home
 
 RUN echo "Acquire::http::Pipeline-Depth 0;" > /etc/apt/apt.conf.d/99custom && \
@@ -33,4 +30,5 @@ COPY settings_local.dev.py settings_local.py
 RUN python manage.py migrate
 RUN python manage.py loaddata audience
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8005"]
+EXPOSE 8004
+ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8004"]

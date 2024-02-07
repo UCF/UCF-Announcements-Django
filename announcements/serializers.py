@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from announcements.models import *
 from taggit.models import *
-from taggit_serializer.serializers import TagListSerializerField, TaggitSerializer
+from taggit.serializers import TagListSerializerField, TaggitSerializer
 from drf_dynamic_fields import DynamicFieldsMixin
 import warnings
 

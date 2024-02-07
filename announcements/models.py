@@ -124,7 +124,7 @@ class Announcement(models.Model):
     contact_phone = models.CharField(max_length=15, null=True, blank=True)
     contact_email = models.CharField(max_length=100, null=False, blank=False)
     posted_by = models.CharField(max_length=255, null=False, blank=False)
-    author = models.ForeignKey(User, related_name='announcements', blank=True, null=True)
+    author = models.ForeignKey(User, related_name='announcements', on_delete=models.CASCADE, blank=True, null=True)
 
     statuses = (
         ('Pending', 'Pending'),
@@ -192,7 +192,7 @@ class Profile(models.Model):
     """
     A User Profile
     """
-    user = models.OneToOneField(User, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     guid = models.CharField(max_length=100, null=True, unique=True)
     first_time = models.BooleanField(default=True)
 

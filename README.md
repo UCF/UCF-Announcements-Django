@@ -18,6 +18,25 @@ pip install -r requirements.txt \
 --global-option="-I$(xcrun --show-sdk-path)/usr/include/sasl"
 ```
 
+### Container (Python:3.11-bookworm)
+
+1. Install prerequisite packages:
+```
+apt-get update -y && apt-get upgrade -y
+apt-get install libldap-dev build-essential -y
+```
+(If a header file is not available, apt-get install apt-file and then use apt-file and the header name to search for the missing package)
+
+2. Clone repository: `git clone https://github.com/UCF/UCF-Announcements-Django` and move to the directory
+3. Install requirements: `pip install -r requirements.txt`
+4. Install the required npm packages: `npm install`
+5. Make sure the default artifacts are created: `gulp default`
+6. Run the deployment steps: `python manage.py deploy`. This command is the equivelent of running the following individual commands:
+    a. `python manage.py migrate`
+    b. `python manage.py loaddata audience`
+    c. `python manage.py collectstatic -l`
+7. Run the local server to debug and test: `python manage.py runserver`
+
 ### Debian (Ubuntu)
 
 1. Install prerequisite packages:

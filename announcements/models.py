@@ -177,6 +177,10 @@ class Announcement(models.Model):
     @property
     def permalink(self):
         return self.get_absolute_url()
+    
+    @property
+    def expired(self):
+        return (datetime.date.today() - self.end_date).days > settings.DAYS_UNTIL_EXPIRED
 
     def __str__(self):
         return self.title

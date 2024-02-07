@@ -121,6 +121,8 @@ REST_FRAMEWORK = {
     )
 }
 
+# Taggit settings
+TAGGIT_CASE_INSENSITIVE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

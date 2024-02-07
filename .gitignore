@@ -32,3 +32,4 @@ static/rest_framework/*
 
 # Terraform
 .terraform/*
+Lib/

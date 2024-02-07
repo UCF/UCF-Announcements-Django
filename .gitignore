@@ -1,6 +1,7 @@
 *.pyc
 *.sqlite3
 .venv/
+**/pyvenv.cfg
 Lib/
 settings_local*.py
 apache/python.wsgi

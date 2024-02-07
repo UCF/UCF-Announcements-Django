@@ -106,6 +106,13 @@ class AnnouncementDetail(RemoteMenuMixin, DetailView):
     model = Announcement
     template_name = 'announcements/announcement-detail.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj and obj.expired:
+            return redirect('announcements.home')
+
+        return super(AnnouncementDetail, self).dispatch(request, *args, **kwargs)
+
 
 @method_decorator(login_required, name='dispatch')
 class AnnouncementListView(TemplateView):
@@ -211,7 +218,7 @@ class KeywordListAPIView(APIView):
         s = request.query_params.get('s', None)
         keywords = None
         if s is not None:
-            keywords = Tag.objects.filter(name__contains=s)
+            keywords = Tag.objects.filter(name__icontains=s)
         else:
             keywords = Tag.objects.all()[:10]
 

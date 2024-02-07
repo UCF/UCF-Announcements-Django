@@ -75,6 +75,24 @@ yum install openldap-devel python-devel
 
 ## Changelog
 
+### 1.0.14
+Enhancements:
+* Added expiration period to old announcements. Any past the expiration will be redirected to the home page.
+### 1.0.13
+Accessibility:
+* Added skip to content link at the top of the base template.
+### v1.0.12
+* Updated default character set and collation for database tables.
+### v1.0.11
+* Ensure taggit tags (used for announcement keywords) as case sensitive but are pulled via the typeahead control case insensitively.
+### v1.0.10
+Bug Fixes:
+* Fixed a bug where remote menus were not loading properly.
+
+### v1.0.9
+Bug Fixes:
+* Made changes to the local settings template related to logging.
+
 ### v1.0.8
 Bug Fixes:
 * Corrected problem with date fields in the admin area.

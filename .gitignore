@@ -1,6 +1,7 @@
 *.pyc
 *.sqlite3
 .venv/
+Lib/
 settings_local*.py
 apache/python.wsgi
 ._*
@@ -31,5 +32,5 @@ static/admin/*
 static/rest_framework/*
 
 # Terraform
+*.tfstate*
 .terraform/*
-Lib/

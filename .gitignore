@@ -8,8 +8,9 @@ apache/python.wsgi
 ._*
 Thumbs.db
 .DS_Store
+.env
 
-./database
+database
 
 *.db
 *.db-journal

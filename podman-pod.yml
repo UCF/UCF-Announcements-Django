@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ucf-announcements-pod
+  labels:
+    app: ucf-announcements
+spec:
+  containers:
+    - name: announcements-django
+      image: announcements-django-image
+      ports:
+        - containerPort: 8004
+    - name: announcements-db
+      image: localhost/announcements-db
+      env_file:
+        - /.env
+      volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+  volumes:
+    - name: mysql-data
+      emptyDir: {}

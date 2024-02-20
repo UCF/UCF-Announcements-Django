@@ -9,6 +9,8 @@ apache/python.wsgi
 Thumbs.db
 .DS_Store
 
+./database
+
 *.db
 *.db-journal
 *.log

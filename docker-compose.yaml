@@ -7,16 +7,18 @@ services:
       - "3307:3306"
     env_file:
       - ./.env
-    volumes:
-      - ~/temp/mysqld:/var/run/mysqld:rw
-      - ~/temp/db:/var/lib/mysql:rw
+    healthcheck:
+      test: ["CMD", "curl", "-f", "localhost:3306"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
   web:
     build: 
       dockerfile: ./Containerfile-web
     ports:
-      - "8004:8000"
-    volumes:
-      - ~/temp/mysqld:/var/run/mysqld:Z
+      - "8004:8004"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 

@@ -30,7 +30,6 @@ RUN npm install
 
 RUN mv settings_local.templ.py settings_local.py
 RUN python manage.py makemigrations  
-RUN python manage.py loaddata audience
 
 EXPOSE 8004
 ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8004"]

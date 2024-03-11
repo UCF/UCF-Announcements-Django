@@ -2,9 +2,9 @@ version: '3'
 services:
   db:
     build:
-      dockerfile: ./Containerfile-database
+      dockerfile: ./Containerfile-db
     ports:
-      - 3306
+      - "3307:3306"
     env_file:
       - ./.env
     volumes:
@@ -12,11 +12,11 @@ services:
       - ~/temp/db:/var/lib/mysql:rw
   web:
     build: 
-      dockerfile: ./Containerfile
+      dockerfile: ./Containerfile-web
     ports:
-      - "8004:8004"
+      - "8004:8000"
     volumes:
-      - ~/temp/mysqld:/var/run/mysqld:rw
+      - ~/temp/mysqld:/var/run/mysqld:Z
     depends_on:
       - db
 

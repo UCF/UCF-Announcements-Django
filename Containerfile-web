@@ -2,12 +2,14 @@
 #FROM python:3.12.1-bookworm
 
 #Mac
-#FROM amd64/python:3.12.1-bookworm
+FROM amd64/python:3.12.1-bookworm
 
 #Mac M1
-FROM arm64v8/python:latest
+#FROM arm64v8/python:latest
 
-WORKDIR /home
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
 
 RUN echo "Acquire::http::Pipeline-Depth 0;" > /etc/apt/apt.conf.d/99custom && \
     echo "Acquire::http::No-Cache true;" >> /etc/apt/apt.conf.d/99custom && \
@@ -21,17 +23,13 @@ RUN apt-get clean && \
 RUN apt-get autoremove
 RUN apt-get install npm -y 
 
-WORKDIR /home/announcements
-RUN git clone https://github.com/UCF/UCF-Announcements-Django
+COPY . /app/
 
-WORKDIR /home/announcements/UCF-Announcements-Django 
-RUN git switch containerfile
-
-WORKDIR /home/announcements/UCF-Announcements-Django
 RUN pip install -r requirements.txt
 RUN npm install
-COPY settings_local.dev.py settings_local.py
-RUN python manage.py migrate
+
+RUN mv settings_local.templ.py settings_local.py
+RUN python manage.py makemigrations  
 RUN python manage.py loaddata audience
 
 EXPOSE 8004

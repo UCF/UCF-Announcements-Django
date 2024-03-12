@@ -23,7 +23,7 @@ RUN apt-get clean && \
 RUN apt-get autoremove
 RUN apt-get install npm -y 
 
-COPY . /app/
+COPY /web/ /app/
 
 RUN pip install -r requirements.txt
 RUN npm install

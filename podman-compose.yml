@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
   db:
     build:
@@ -17,7 +17,7 @@ services:
     build: 
       dockerfile: ./Containerfile-web
     ports:
-      - "8004:8004"
+      - "8004:8000"
     depends_on:
       db:
         condition: service_healthy

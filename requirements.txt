@@ -2,7 +2,7 @@ appdirs==1.4.3
 beautifulsoup4==4.5.3
 bleach==2.0.0
 bs4==0.0.1
-Django==1.11.18
+Django==3.2.25
 django-auth-ldap==1.2.10
 django-cors-headers==2.0.2
 django-filter==1.1.0

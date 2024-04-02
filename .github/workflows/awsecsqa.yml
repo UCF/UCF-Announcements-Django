@@ -24,7 +24,7 @@
 #    See the documentation for each action used below for the recommended IAM policies for this IAM user,
 #    and best practices on handling the access key credentials.
 
-name: Deploy to Amazon ECS Dev Cluster
+name: Deploy to Amazon ECS QA Cluster
 
 on:
   push:
@@ -35,13 +35,11 @@ on:
 env:
   AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
   WEB_REPOSITORY: announcements-web
-  DB_REPOSITORY: announcements-db
   ECS_SERVICE: announcements                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: QACluster                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: .aws/task-definition.json # set this to the path to your Amazon ECS task definition
+  ECS_CLUSTER: QACluster                # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: .aws/qa-task-definition.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
   WEB_CONTAINER_NAME: announcements-web           # set this to the name of the container in the
-  DB_CONTAINER_NAME: announcements-db                                             # containerDefinitions section of your task definition
 
 permissions:
   id-token: write
@@ -51,11 +49,22 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: development
+    environment: qa
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: Create .env
+      run: | 
+        mkdir -p ${{ github.workspace }}/web/
+        touch ${{ github.workspace }}/web/.env
+        echo "DEBUG=False" >> ${{ github.workspace }}/web/.env
+        echo "DB_NAME=template_qa_db" >> ${{ github.workspace }}/web/.env
+        echo "DB_USER=${{ secrets.QA_USER }}" >> ${{ github.workspace }}/web/.env
+        echo "DB_PASSWORD=${{ secrets.QA_PASSWORD }}" >> ${{ github.workspace }}/web/.env 
+        echo "DB_HOST=${{ secrets.QA_HOST }}" >> ${{ github.workspace }}/web/.env
+        echo "DB_PORT=3306" >> ${{ github.workspace}}/web/.env
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -76,8 +85,13 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         REGISTRY_ALIAS: j2a5t6s3
-        IMAGE_TAG: ${{ github.sha }}
-
+        IMAGE_TAG: ${{ github.sha }} 
+        DEBUG: False
+        DB_NAME: announcements_db_qa
+        DB_USER: ${{ secrets.QA_USER }}
+        DB_PASSWORD: ${{ secrets.QA_PASSWORD }}
+        DB_HOST: ${{ secrets.QA_HOST }}
+        DB_PORT: 3306
       run: |
         # Build a docker container and
         # push it to ECR so that it can
@@ -86,17 +100,6 @@ jobs:
         docker push $ECR_REGISTRY/$REGISTRY_ALIAS/$WEB_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$REGISTRY_ALIAS/$WEB_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-    - name: Build, tag, and push image to Amazon ECR Public
-      id: build-image-db
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-        REGISTRY_ALIAS: j2a5t6s3
-        IMAGE_TAG: ${{ github.sha }}
-
-      run: |
-        docker build -f Containerfile-db -t $ECR_REGISTRY/$REGISTRY_ALIAS/$DB_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$REGISTRY_ALIAS/$DB_REPOSITORY:$IMAGE_TAG
-        echo "image=$ECR_REGISTRY/$REGISTRY_ALIAS/$DB_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
@@ -105,19 +108,12 @@ jobs:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.WEB_CONTAINER_NAME }}
         image: ${{ steps.build-image.outputs.image }}
-
-    - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def2
-      uses: aws-action/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        container-name: ${{ env.DB_CONTAINER_NAME }}
-        image: ${{ steps.build-image-db.outputs.image }}
+  
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def2.outputs.task-definition }}
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true

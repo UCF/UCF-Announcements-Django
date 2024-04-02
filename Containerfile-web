@@ -34,4 +34,4 @@ RUN npm install
 RUN mv settings_local.templ.py settings_local.py
 RUN python manage.py makemigrations  
 
-CMD ["./wait-for-it.sh", "localhost:3306", "--timeout=30", "--", "sh", "-c", "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"]

@@ -4,8 +4,6 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 
-import logging
-
 def alter_collation(character_set, collation, scheme_editor):
     with scheme_editor.connection.cursor() as cursor:
         # Set collation and character set defaults for database

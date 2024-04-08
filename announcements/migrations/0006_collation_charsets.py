@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 
+import logging
+
 def alter_collation(character_set, collation, scheme_editor):
     with scheme_editor.connection.cursor() as cursor:
         # Set collation and character set defaults for database
@@ -20,18 +22,25 @@ def alter_collation(character_set, collation, scheme_editor):
             )
 
 def alter_collation_forwards(apps, schema_editor):
-	'''
-	Sets *collation* and *character_set* for a database and its tables.
-	Also converts data in the tables if necessary.
-	'''
-	return alter_collation('utf8mb4', 'utf8mb4_general_ci', schema_editor)
+    '''
+    Sets *collation* and *character_set* for a database and its tables.
+    Also converts data in the tables if necessary.
+    '''
+    if schema_editor.connection.vendor != 'mysql':
+        return
+
+    return alter_collation('utf8mb4', 'utf8mb4_general_ci', schema_editor)
 
 
 def alter_collation_reverse(apps, schema_editor):
-	return alter_collation('latin1', 'latin1_swedish_ci', schema_editor)
+    if schema_editor.connection.vendor != 'mysql':
+        return
+
+    return alter_collation('latin1', 'latin1_swedish_ci', schema_editor)
 
 
 class Migration(migrations.Migration):
+
 
     dependencies = [
         ('announcements', '0005_auto_20180322_1505'),

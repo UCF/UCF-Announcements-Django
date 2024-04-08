@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('announcements', '0005_auto_20180322_1505'),
+        ('announcements', '0006_collation_charsets'),
     ]
 
     operations = [

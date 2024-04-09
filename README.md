@@ -1,7 +1,39 @@
 # UCF-Announcements
 Django application for managing and displaying UCF-Announcements.
 
-## Prerequisites
+
+## Container Instructions
+
+1. Install prerequisite packages:
+
+Podman/Docker is necessary. For installation instructions please refer to their relevant documentation.
+
+2. Ensure the podman machine is initialized
+
+Use the command:
+
+`podman machine init`
+
+3. Ensure the podman machine has started
+
+Use the command:
+
+`podman machine start`
+
+4. Build the container image
+
+`podman build -t announcements .`
+
+5. Run the container
+
+`podman run -ti -p 8000:8000 announcements`
+
+6. Make changes to the repository and repeat steps 4-6 as necessary
+
+
+## Installation on machine without a container
+
+### Prerequisites
 
 The `python-ldap` module requires a number of prerequisites to be installed before it can be installed via `pip` in step 5 below.
 
@@ -17,25 +49,6 @@ pip install -r requirements.txt \
 --global-option=build_ext \
 --global-option="-I$(xcrun --show-sdk-path)/usr/include/sasl"
 ```
-
-### Container (Python:3.11-bookworm)
-
-1. Install prerequisite packages:
-```
-apt-get update -y && apt-get upgrade -y
-apt-get install libldap-dev build-essential -y
-```
-(If a header file is not available, apt-get install apt-file and then use apt-file and the header name to search for the missing package)
-
-2. Clone repository: `git clone https://github.com/UCF/UCF-Announcements-Django` and move to the directory
-3. Install requirements: `pip install -r requirements.txt`
-4. Install the required npm packages: `npm install`
-5. Make sure the default artifacts are created: `gulp default`
-6. Run the deployment steps: `python manage.py deploy`. This command is the equivelent of running the following individual commands:
-    a. `python manage.py migrate`
-    b. `python manage.py loaddata audience`
-    c. `python manage.py collectstatic -l`
-7. Run the local server to debug and test: `python manage.py runserver`
 
 ### Debian (Ubuntu)
 

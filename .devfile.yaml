@@ -1,0 +1,16 @@
+schemaVersion: 2.2.0
+
+components:
+  - name: announcements-image
+    image:
+      dockerfile:
+        uri: Containerfile
+      imageName: announcements-image
+ 
+  - name: announcements
+    container:
+      image: announcements-image
+      endpoints:
+      - name: http-8000
+        targetPort: 8000
+      

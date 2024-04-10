@@ -4,7 +4,8 @@ components:
   - name: announcements-image
     image:
       dockerfile:
-        uri: Containerfile
+        uri: ./Containerfile
+        buildContext: .
       imageName: announcements-image
  
   - name: announcements

@@ -33,7 +33,6 @@ WORKDIR /app/
 
 RUN pip install -r requirements.txt
 RUN mv settings_local.templ.py settings_local.py
-RUN python3 manage.py makemigrations
-  
+RUN python3 manage.py migrate  
 
-CMD ["sh", "-c", "python3 manage.py migrate && gunicorn -c config/gunicorn/dev.py"]
+CMD ["sh", "-c", "gunicorn -c config/gunicorn/dev.py"]

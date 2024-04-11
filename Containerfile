@@ -39,12 +39,15 @@ RUN mv settings_local.templ.py settings_local.py
 RUN python3 manage.py collectstatic --noinput  
 RUN python3 manage.py migrate
 
-RUN mkdir /etc/nginx/sites-enabled/announcements
+COPY /config/announcements.conf /etc/nginx/sites-available/
 
-RUN ln -s -f /etc/nginx/sites-available/announcements/ /etc/nginx/sites-enabled/
-
-COPY default /etc/nginx/sites-enabled/announcements
+RUN ln -s /etc/nginx/sites-available/announcements.conf /etc/nginx/sites-enabled/announcements.conf
 
 WORKDIR /app/
+
+RUN systemctl enable nginx
+RUN systemctl start nginx
+
+EXPOSE 8000
 
 CMD ["sh", "-c", "nginx && gunicorn -c config/gunicorn/dev.py"]

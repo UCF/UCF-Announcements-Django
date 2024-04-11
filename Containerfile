@@ -39,11 +39,9 @@ RUN mv settings_local.templ.py settings_local.py
 RUN python3 manage.py collectstatic --noinput  
 RUN python3 manage.py migrate
 
-COPY /config/announcements.conf /etc/nginx/sites-available/
+COPY /config/nginx/announcements.conf /etc/nginx/sites-available/
 
 RUN ln -s /etc/nginx/sites-available/announcements.conf /etc/nginx/sites-enabled/announcements.conf
-
-WORKDIR /app/
 
 RUN systemctl enable nginx
 RUN systemctl start nginx

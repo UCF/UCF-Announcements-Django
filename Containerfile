@@ -24,12 +24,15 @@ RUN apt-get clean && \
 RUN apt-get autoremove
 RUN apt-get install npm -y 
 
+RUN mkdir -pv /var/log/gunicorn/
+RUN mkdir -pv /var/run/gunicorn/
+
 COPY . /app/
 
 WORKDIR /app/
 
 RUN pip install -r requirements.txt
 RUN mv settings_local.templ.py settings_local.py
-RUN python manage.py makemigrations  
+RUN python3 manage.py migrate  
 
-CMD ["sh", "-c", "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "gunicorn -c config/gunicorn/dev.py"]

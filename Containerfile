@@ -20,12 +20,15 @@ RUN apt-get clean && \
     apt-get install -f libldap-dev \
         libsasl2-dev \
         vim \
+	nginx \
+	systemctl \
         build-essential -y
 RUN apt-get autoremove
 RUN apt-get install npm -y 
 
 RUN mkdir -pv /var/log/gunicorn/
 RUN mkdir -pv /var/run/gunicorn/
+RUN mkdir -pv /var/www/announcements/static/
 
 COPY . /app/
 
@@ -34,6 +37,14 @@ WORKDIR /app/
 RUN pip install -r requirements.txt
 RUN mv settings_local.templ.py settings_local.py
 RUN python3 manage.py makemigrations
-  
+RUN python3 manage.py collectstatic --noinput  
 
-CMD ["sh", "-c", "python3 manage.py migrate && gunicorn -c config/gunicorn/dev.py"]
+RUN mkdir /etc/nginx/sites-enabled/announcements
+
+RUN ln -s -f /etc/nginx/sites-available/announcements/ /etc/nginx/sites-enabled/
+
+COPY default /etc/nginx/sites-enabled/announcements
+
+WORKDIR /app/
+
+CMD ["sh", "-c", "python3 manage.py migrate && nginx && gunicorn -c config/gunicorn/dev.py"]

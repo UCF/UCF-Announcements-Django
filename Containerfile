@@ -36,8 +36,8 @@ WORKDIR /app/
 
 RUN pip install -r requirements.txt
 RUN mv settings_local.templ.py settings_local.py
-RUN python3 manage.py makemigrations
 RUN python3 manage.py collectstatic --noinput  
+RUN python3 manage.py migrate
 
 RUN mkdir /etc/nginx/sites-enabled/announcements
 
@@ -47,4 +47,4 @@ COPY default /etc/nginx/sites-enabled/announcements
 
 WORKDIR /app/
 
-CMD ["sh", "-c", "python3 manage.py migrate && nginx && gunicorn -c config/gunicorn/dev.py"]
+CMD ["sh", "-c", "nginx && gunicorn -c config/gunicorn/dev.py"]

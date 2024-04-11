@@ -14,4 +14,6 @@ components:
       endpoints:
       - name: http-8000
         targetPort: 8000
-      
+    attributes:
+      container-overrides:
+        imagePullPolicy: IfNotPresent 

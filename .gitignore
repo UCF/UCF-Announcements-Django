@@ -6,6 +6,7 @@ apache/python.wsgi
 ._*
 Thumbs.db
 .DS_Store
+.env
 
 *.db
 *.db-journal

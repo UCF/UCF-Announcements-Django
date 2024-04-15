@@ -1,11 +1,11 @@
 #Windows/Linux
 #FROM python:3.12.1-bookworm
 
-# #Mac
-# FROM amd64/python:3.12.1-bookworm
+# Mac
+FROM amd64/python:3.12.1-bookworm
 
 # Mac M1
-FROM arm64v8/python:latest
+# FROM arm64v8/python:latest
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
@@ -35,7 +35,7 @@ COPY . /app/
 WORKDIR /app/
 
 RUN pip install -r requirements.txt
-RUN mv settings_local.templ.py settings_local.py
+RUN mv .env.templ .env
 RUN python3 manage.py collectstatic --noinput
 RUN python3 manage.py migrate
 

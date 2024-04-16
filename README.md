@@ -20,15 +20,17 @@ Use the command:
 
 `podman machine start`
 
-4. Build the container image
+4. Edit the .env.templ file to uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
+
+5. Build the container image
 
 `podman build -t announcements .`
 
-5. Run the container
+6. Run the container
 
 `podman run -ti -p 8000:8000 announcements`
 
-6. Make changes to the repository and repeat steps 4-6 as necessary
+7. Make changes to the repository and repeat steps 5-7 as necessary
 
 
 ## Installation on machine without a container

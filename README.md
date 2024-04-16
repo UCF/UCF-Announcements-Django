@@ -6,7 +6,7 @@ Django application for managing and displaying UCF-Announcements.
 
 1. Install prerequisite packages:
 
-Podman/Docker is necessary. For installation instructions please refer to their relevant documentation.
+Podman is necessary. For installation instructions please refer to the relevant documentation [here] (https://podman.io/docs/installation).
 
 2. Ensure the podman machine is initialized
 

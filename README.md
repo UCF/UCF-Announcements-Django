@@ -20,17 +20,23 @@ Use the command:
 
 `podman machine start`
 
-4. Edit the .env.templ file to uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
+4. Change the Containerfile's "FROM" directive to match your architecture. 
 
-5. Build the container image
+Uncomment the relevant FROM statement at the top of the Containerfile
+
+5. Edit the .env.templ file to uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
+
+6. Build the container image
 
 `podman build -t announcements .`
 
-6. Run the container
+7. Run the container
 
 `podman run -ti -p 8000:8000 announcements`
 
-7. Make changes to the repository and repeat steps 5-7 as necessary
+You will now be able to view the application at `0.0.0.0:8000`
+
+8. Make changes to the repository and repeat steps 6-8 as necessary
 
 
 ## Installation on machine without a container

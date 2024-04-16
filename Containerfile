@@ -35,7 +35,6 @@ COPY . /app/
 WORKDIR /app/
 
 RUN pip install -r requirements.txt
-RUN mv .env.templ .env 
 RUN python3 manage.py collectstatic --noinput
 RUN python3 manage.py migrate
 

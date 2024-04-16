@@ -24,7 +24,7 @@ Use the command:
 
 Uncomment the relevant FROM statement at the top of the Containerfile
 
-5. Edit the .env.templ file to uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
+5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
 
 6. Build the container image
 

@@ -5,7 +5,9 @@
 # FROM amd64/python:3.12.1-bookworm
 
 # Mac M1
-FROM arm64v8/python:latest
+# FROM arm64v8/python:latest
+
+FROM python:3.12
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
@@ -24,7 +26,6 @@ RUN apt-get clean && \
 	systemctl \
         build-essential -y
 RUN apt-get autoremove
-RUN apt-get install npm -y
 
 RUN mkdir -pv /var/log/gunicorn/
 RUN mkdir -pv /var/run/gunicorn/
@@ -35,7 +36,6 @@ COPY . /app/
 WORKDIR /app/
 
 RUN pip install -r requirements.txt
-RUN mv settings_local.templ.py settings_local.py
 RUN python3 manage.py collectstatic --noinput
 RUN python3 manage.py migrate
 
@@ -44,7 +44,6 @@ COPY /config/nginx/announcements.conf /etc/nginx/sites-available/
 RUN ln -s /etc/nginx/sites-available/announcements.conf /etc/nginx/sites-enabled/announcements.conf
 
 RUN systemctl enable nginx
-RUN systemctl start nginx
 
 EXPOSE 8000
 

@@ -6,7 +6,7 @@ Django application for managing and displaying UCF-Announcements.
 
 1. Install prerequisite packages:
 
-Podman/Docker is necessary. For installation instructions please refer to their relevant documentation.
+Podman is necessary. For installation instructions please refer to the relevant documentation [here] (https://podman.io/docs/installation).
 
 2. Ensure the podman machine is initialized
 
@@ -20,15 +20,23 @@ Use the command:
 
 `podman machine start`
 
-4. Build the container image
+4. Change the Containerfile's "FROM" directive to match your architecture. 
+
+Uncomment the relevant FROM statement at the top of the Containerfile
+
+5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
+
+6. Build the container image
 
 `podman build -t announcements .`
 
-5. Run the container
+7. Run the container
 
 `podman run -ti -p 8000:8000 announcements`
 
-6. Make changes to the repository and repeat steps 4-6 as necessary
+You will now be able to view the application at `0.0.0.0:8000`
+
+8. Make changes to the repository and repeat steps 6-8 as necessary
 
 
 ## Installation on machine without a container

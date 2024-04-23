@@ -57,6 +57,7 @@ FORCE_SCRIPT_NAME = env('FORCE_SCRIPT_NAME', str, default='/')
 CSRF_COOKIE_PATH = env('CSRF_COOKIE_PATH', str, default='/')
 CSRF_COOKIE_HTTPONLY = env('CSRF_COOKIE_HTTPONLY', bool, default=False) # Should be set to true in production environments
 CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE', bool, default=False) # Should be set to true in production environments
+CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', list, default=['http://localhost:8000'])
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # NET Domain LDAP CONFIG

@@ -24,7 +24,7 @@ DEBUG = env('DEBUG', bool, default=True)
 
 #ALLOWED_HOSTS = env('ALLOWED_HOSTS', list, default=[])
 
-ALLOWED_HOSTS = [os.environ.get('HOST_IP'), '127.0.0.1']
+ALLOWED_HOSTS = [*]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', str, default='INSERTSECRETKEYHERE')

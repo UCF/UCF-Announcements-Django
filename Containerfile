@@ -46,6 +46,6 @@ RUN ln -s /etc/nginx/sites-available/announcements.conf /etc/nginx/sites-enabled
 
 RUN systemctl enable nginx
 
-EXPOSE 8000
+EXPOSE 80
 
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:8000 wsgi:application"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:80 wsgi:application"]

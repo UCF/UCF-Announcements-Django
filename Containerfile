@@ -48,4 +48,4 @@ RUN systemctl enable nginx
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "nginx && gunicorn -c config/gunicorn/dev.py"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:8000 wsgi:application"]

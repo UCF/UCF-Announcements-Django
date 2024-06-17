@@ -54,8 +54,15 @@ ingress:
   hosts:
     - host: chart-example.local
       paths:
-        - path: /
+        - path: /*
           pathType: ImplementationSpecific
+        - path: /static
+          pathType: Prefix
+          backend:
+            service:
+              name: static-content
+              port:
+                number: 80
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

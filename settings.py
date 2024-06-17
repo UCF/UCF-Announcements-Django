@@ -24,7 +24,7 @@ DEBUG = env('DEBUG', bool, default=True)
 
 #ALLOWED_HOSTS = env('ALLOWED_HOSTS', list, default=[])
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['*']
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', str, default='INSERTSECRETKEYHERE')
@@ -104,6 +104,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'announcements',
     'taggit',
+    'storages',
     'widget_tweaks',
     'rest_framework',
     'rest_framework.authtoken',

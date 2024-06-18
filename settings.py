@@ -36,23 +36,29 @@ DATABASES = {
     )
 }
 
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 LOGIN_URL = env('LOGIN_URL', str, default='/manager/login/') # Modify for subdirectories
 LOGOUT_URL = env('LOGOUT_URL', str, default='/manager/logout/') # Modify for subdirectories
 LOGIN_REDIRECT_URL = env('LOGIN_REDIRECT_URL', str, default='/') # Modify for subdirectories
 STATIC_URL = env('STATIC_URL', str, default='/static/')
 
-static_root = env('STATIC_ROOT', str, default=None)
+static_root = env('STATIC_ROOT', str, default='/app/static')
 
 if static_root is not None:
     STATIC_ROOT = os.path.join(BASE_DIR, static_root)
 
-STATICFILES_DIRS = default=[]
+# STATICFILES_DIRS = default=[]
 
-staticfile_dir = env('STATICFILES_DIR', str, default=None)
-if staticfile_dir is not None:
-    STATICFILES_DIRS.append(
-        os.path.join(BASE_DIR, staticfile_dir)
-    )
+# staticfile_dir = env('STATICFILES_DIR', str, default=None)
+# if staticfile_dir is not None:
+#    STATICFILES_DIRS.append(
+#        os.path.join(BASE_DIR, staticfile_dir)
+#    )
 
 # Modify these values if hosting under subdirectory
 FORCE_SCRIPT_NAME = env('FORCE_SCRIPT_NAME', str, default='/')
@@ -122,6 +128,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (

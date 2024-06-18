@@ -178,6 +178,7 @@ setup(
        'six>=1.16.0',
        'sqlparse>=0.4.4',
        'webencodings>=0.5.1',
+       'whitenoise>=6.6.0',
     ], 
    
     # List additional groups of dependencies here (e.g. development

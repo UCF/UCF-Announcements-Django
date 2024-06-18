@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from announcements.views import AnnouncementSiteMap, StaticSiteMap
 
@@ -49,3 +50,5 @@ urlpatterns = [
         include('announcements.urls')
     ),
 ]
+
+urlpatterns += staticfiles_urlpatterns()

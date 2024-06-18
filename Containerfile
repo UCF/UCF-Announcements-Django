@@ -91,5 +91,7 @@ RUN mkdir -pv /var/run/gunicorn/
 RUN mkdir -pv /var/www/announcements/static/
 RUN chmod +x /app/entrypoint.sh
 
+EXPOSE 8000
+
 ENTRYPOINT ["/app/entrypoint.sh"]
 

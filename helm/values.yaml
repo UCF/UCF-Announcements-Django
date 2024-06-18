@@ -87,7 +87,7 @@ livenessProbe:
 readinessProbe:
   httpGet:
     path: /
-    port: 8000
+    port: 80
 
 autoscaling:
   enabled: false

@@ -8,7 +8,7 @@ image:
   repository: public.ecr.aws/x7a1r0o7/announcements
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -46,16 +46,14 @@ service:
 ingress:
   enabled: false
   className: ""
-  annotations: {
-    kubernetes.io/ingress.class: nginx
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  }
   hosts:
-    - host: "*.amazonaws.com"
+    - host: chart-example.local
       paths:
-        - path: /*
+        - path: /
           pathType: ImplementationSpecific
-  
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -76,13 +74,11 @@ resources: {}
 livenessProbe:
   httpGet:
     path: /
-    port: 8000
-  initialDelaySeconds: 5
+    port: http
 readinessProbe:
   httpGet:
     path: /
-    port: 8000
-  initialDelaySeconds: 5
+    port: http
 
 autoscaling:
   enabled: false

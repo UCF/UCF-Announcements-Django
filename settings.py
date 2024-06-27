@@ -30,15 +30,13 @@ ALLOWED_HOSTS = ['*']
 SECRET_KEY = env('SECRET_KEY', str, default='INSERTSECRETKEYHERE')
 
 
-if os.environ['DATABASE_URL']:
+if os.environ.get('DATABASE_URL'):
     DATABASES = {
-         'default': os.environ['DATABASE_URL']
+         'default': os.environ.get('DATABASE_URL')
     }
 else:
     DATABASES = {
-        'default': env.db(
-            'DATABASE_URL'
-        )
+        'default': env.db('DATABASE_URL')
    }
 
 

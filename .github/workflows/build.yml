@@ -29,7 +29,6 @@ jobs:
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: announcements
           IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
@@ -37,5 +36,5 @@ jobs:
           STATIC_URL: ${{ secrets.STATIC_URL }}
           STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
         run: |
-          podman build -f Containerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          podman push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          podman build -f Containerfile -t public.ecr.aws/x7a1r0o7/$ECR_REPOSITORY:$IMAGE_TAG .
+          podman push public.ecr.aws/x7a1r0o7/$ECR_REPOSITORY:$IMAGE_TAG

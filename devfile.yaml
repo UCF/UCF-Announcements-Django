@@ -1,0 +1,53 @@
+schemaVersion: 2.2.0
+metadata:
+  name: announcements
+  displayName: UCF Announcements
+  description: "Django is a high level Python web framework that enables rapid development of web applications and microservices."
+  icon: https://static.djangoproject.com/img/logos/django-logo-positive.svg
+  tags:
+    - Django
+    - Python
+    - Pip
+  projectType: Django
+  language: Python
+  provider: UCF
+  version: 0.0.1
+
+starterProjects:
+  - name: django-5-example
+    git:
+      remotes:
+        origin: https://github.com/UCF/django-5-example
+
+components:
+  - image:
+      imageName: announcements
+      dockerfile:
+        uri: ./Containerfile
+    name: announcements
+
+  - name: py-web
+    attributes:
+      container-overrides:
+        imagePullPolicy: IfNotPresent
+    container:
+      image: announcements
+      args: ["tail", "-f", "/dev/null"]
+      mountSources: true
+      endpoints:
+        - name: http-django
+          targetPort: 8000
+        - name: debug
+          targetPort: 5858
+      env:
+        - name: DEBUG_PORT
+          value: '5858'
+
+commands:
+  - id: debug
+    exec:
+      commandLine: 'pip install debugpy && export DEBUG_MODE=True && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} manage.py runserver 0.0.0.0:8000 --noreload --nothreading'
+      workingDir: ${PROJECT_SOURCE}
+      component: py-web
+      group:
+        kind: debug

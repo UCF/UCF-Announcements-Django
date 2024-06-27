@@ -1,2 +1,8 @@
 # Ignore containerfile
 Containerfile
+
+# Ignore devfile
+devfile.yaml
+
+# Ignore .swp files
+*.swp

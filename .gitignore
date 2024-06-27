@@ -31,3 +31,5 @@ gulp-config.json
 static/admin/*
 static/rest_framework/*
 
+
+.odo

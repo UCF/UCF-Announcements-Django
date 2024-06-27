@@ -29,11 +29,18 @@ ALLOWED_HOSTS = ['*']
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', str, default='INSERTSECRETKEYHERE')
 
-DATABASES = {
-    'default': env.db(
-        'DATABASE_URL'
-    )
-}
+
+if os.environ['DATABASE_URL']:
+    DATABASES = {
+         'default': os.environ['DATABASE_URL']
+    }
+else:
+    DATABASES = {
+        'default': env.db(
+            'DATABASE_URL'
+        )
+   }
+
 
 STORAGES = {
     "staticfiles": {

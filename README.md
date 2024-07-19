@@ -25,7 +25,7 @@ Use the command:
 
 Uncomment the relevant FROM statement at the top of the Containerfile
 
-5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS and STATIC_ROOT options, add the DATABASE_URL as well
+5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS, STATIC_ROOT, and STATIC_URL options. Change STATIC_ROOT and STATIC_URL to equal `/app/static/` and add the DATABASE_URL as well.
 
 6. Build and run the container image
 

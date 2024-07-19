@@ -25,7 +25,7 @@ Use the command:
 
 Uncomment the relevant FROM statement at the top of the Containerfile
 
-5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
+5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS and STATIC_ROOT options, add the DATABASE_URL as well
 
 6. Build and run the container image
 
@@ -35,6 +35,15 @@ You will now be able to view the application at `0.0.0.0:8000`
 
 7. Make changes to the repository, press `Ctrl+C` to stop Odo, and restart it with the command in step 6 to see the change. Repeat steps 6-7 as necessary
 
+## Troubleshooting
+
+- ODO Dev is not live-reloading for Announcements yet. Manually press Ctrl+C just once, and then reload the odo dev command. 
+
+- If you press Ctrl+C twice, Odo will exit without cleaning up resources and then fail on future attempts to run it saying you have volumes or a Pod there. Use the following commands to clean those resources
+
+`podman pod stop --all`
+`podman pod rm --all`
+`podman volume rm --all`
 
 ## Installation on machine without a container
 
@@ -91,6 +100,8 @@ yum install openldap-devel python-devel
     b. `python manage.py loaddata audience`
     c. `python manage.py collectstatic -l`
 10. Run the local server to debug and test: `python manage.py runserver`
+
+
 
 ## Changelog
 

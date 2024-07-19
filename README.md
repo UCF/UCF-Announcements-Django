@@ -20,23 +20,20 @@ Use the command:
 
 `podman machine start`
 
-4. Change the Containerfile's "FROM" directive to match your architecture. 
+(Optional if needed)
+ 4. Change the Containerfile's "FROM" directive to match your architecture. 
 
 Uncomment the relevant FROM statement at the top of the Containerfile
 
 5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
 
-6. Build the container image
+6. Build and run the container image
 
-`podman build -t announcements .`
-
-7. Run the container
-
-`podman run -ti -p 8000:8000 announcements`
+`ODO_PUSH_IMAGES=false odo dev --platform=podman --port-forward=8000:8000`
 
 You will now be able to view the application at `0.0.0.0:8000`
 
-8. Make changes to the repository and repeat steps 6-8 as necessary
+7. Make changes to the repository, press `Ctrl+C` to stop Odo, and restart it with the command in step 6 to see the change. Repeat steps 6-7 as necessary
 
 
 ## Installation on machine without a container

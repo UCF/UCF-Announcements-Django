@@ -8,7 +8,7 @@ image:
   repository: public.ecr.aws/x7a1r0o7/announcements
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 08f0dd9
+  tag: 715688d
 
 imagePullSecrets: []
 nameOverride: ""

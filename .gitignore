@@ -6,6 +6,7 @@ apache/python.wsgi
 ._*
 Thumbs.db
 .DS_Store
+.env
 
 *.db
 *.db-journal
@@ -29,3 +30,6 @@ gulp-config.json
 # Static Files
 static/admin/*
 static/rest_framework/*
+
+
+.odo

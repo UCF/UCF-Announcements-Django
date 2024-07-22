@@ -1,7 +1,53 @@
 # UCF-Announcements
 Django application for managing and displaying UCF-Announcements.
 
-## Prerequisites
+
+## Container Instructions
+
+1. Install prerequisite packages:
+
+Podman is necessary. For installation instructions please refer to the relevant documentation [here] (https://podman.io/docs/installation).
+
+2. Ensure the podman machine is initialized
+
+Use the command:
+
+`podman machine init`
+
+3. Ensure the podman machine has started
+
+Use the command:
+
+`podman machine start`
+
+(Optional if needed)
+ 4. Change the Containerfile's "FROM" directive to match your architecture. 
+
+Uncomment the relevant FROM statement at the top of the Containerfile
+
+5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS, STATIC_ROOT, and STATIC_URL options. Change STATIC_ROOT and STATIC_URL to equal `/app/static/` and add the DATABASE_URL as well.
+
+6. Build and run the container image
+
+`ODO_PUSH_IMAGES=false odo dev --platform=podman --port-forward=8000:8000`
+
+You will now be able to view the application at `0.0.0.0:8000`
+
+7. Make changes to the repository, press `Ctrl+C` to stop Odo, and restart it with the command in step 6 to see the change. Repeat steps 6-7 as necessary
+
+## Troubleshooting
+
+- ODO Dev is not live-reloading for Announcements yet. Manually press Ctrl+C just once, and then reload the odo dev command. 
+
+- If you press Ctrl+C twice, Odo will exit without cleaning up resources and then fail on future attempts to run it saying you have volumes or a Pod there. Use the following commands to clean those resources
+
+`podman pod stop --all`
+`podman pod rm --all`
+`podman volume rm --all`
+
+## Installation on machine without a container
+
+### Prerequisites
 
 The `python-ldap` module requires a number of prerequisites to be installed before it can be installed via `pip` in step 5 below.
 
@@ -39,20 +85,23 @@ yum install openldap-devel python-devel
 ```
 2. Run pip install normally after following steps 1-4 below: `pip install -r requirements.txt`.
 
-## Installation and Setup
+## Local Installation and Setup
 
 1. Install virtual environment: `pip install virtualenv`
 2. Create virtual environment for your project: `virtualenv projectfolder` and move to the directory `cd projectfolder/`
 3. Clone repository into src directory: `git clone git@github.com:UCF/unify-events.git src` and move to the directory `cd src/`
 4. Activate virtual environment: `source ../bin/activate`
-5. Install requirements: `pip install -r requirements.txt`
-6. Install the required npm packages: `npm install`
-7. Make sure the default artifacts are created: `gulp default`
-8. Run the deployment steps: `python manage.py deploy`. This command is the equivelent of running the following individual commands:
+5. Copy the `.env.templ` file to `.env` and uncomment and update all configuration items necessary.
+6. Install requirements: `pip install -r requirements.txt`
+7. Install the required npm packages: `npm install`
+8. Make sure the default artifacts are created: `gulp default`
+9. Run the deployment steps: `python manage.py deploy`. This command is the equivelent of running the following individual commands:
     a. `python manage.py migrate`
     b. `python manage.py loaddata audience`
     c. `python manage.py collectstatic -l`
-9. Run the local server to debug and test: `python manage.py runserver`
+10. Run the local server to debug and test: `python manage.py runserver`
+
+
 
 ## Changelog
 

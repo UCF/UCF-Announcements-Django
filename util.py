@@ -4,44 +4,24 @@ import logging, settings
 from django.conf import settings
 import ldap
 
-import urllib, json, ssl
+import urllib.request, urllib.parse, urllib.error, json
 
 def get_header_menu_items():
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-
-    try:
-        response = urllib.urlopen(settings.REMOTE_MENU_HEADER, context=ctx)
-    except:
-        response = None
-
-    if response:
-        data = json.loads(response.read())
-
+    response = urllib.request.urlopen(settings.REMOTE_MENU_HEADER)
+    data = json.loads(response.read())
     try:
         items = data['items']
-    except Exception, e:
+    except Exception as e:
         items = None
 
     return items
 
 def get_footer_menu_items():
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-
-    try:
-        response = urllib.urlopen(settings.REMOTE_MENU_FOOTER, context=ctx)
-    except:
-        response = None
-
-    if response:
-        data = json.loads(response.read())
-
+    response = urllib.request.urlopen(settings.REMOTE_MENU_FOOTER)
+    data = json.loads(response.read())
     try:
         items = data['items']
-    except Exception, e:
+    except Exception as e:
         items = None
 
     return items
@@ -95,14 +75,14 @@ class LDAPHelper(object):
             ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
             ldap.set_option(ldap.OPT_REFERRALS, 0)
             return ldap.initialize(settings.LDAP_NET_HOST)
-        except ldap.LDAPError, e:
+        except ldap.LDAPError as e:
             raise LDAPHelper.UnableToConnect(e)
 
     @classmethod
     def bind(cls, connection, username, password):
         try:
             connection.simple_bind_s(username + settings.LDAP_NET_USER_SUFFIX, password)
-        except ldap.LDAPError, e:
+        except ldap.LDAPError as e:
             raise LDAPHelper.UnableToBind(e)
 
     @classmethod
@@ -124,7 +104,7 @@ class LDAPHelper(object):
                                               ldap_filter,
                                               None,
                                               sizelimit=sizelimit)
-        except ldap.LDAPError, e:
+        except ldap.LDAPError as e:
             raise LDAPHelper.UnableToSearch(e)
         else:
             results = []
@@ -148,9 +128,9 @@ class LDAPHelper(object):
     def _extract_attribute(cls, ldap_user, attribute):
         try:
             return ldap_user[attribute][0]
-        except KeyError, e:
+        except KeyError as e:
             raise LDAPHelper.MissingAttribute(e)
-        except ValueError, e:
+        except ValueError as e:
             raise LDAPHelper.MissingAttribute(e)
 
     @classmethod

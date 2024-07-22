@@ -10,10 +10,90 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import environ
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+env = environ.FileAwareEnv()
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+DEBUG = env('DEBUG', bool, default=True)
+
+#ALLOWED_HOSTS = env('ALLOWED_HOSTS', list, default=[])
+
+ALLOWED_HOSTS = ['*']
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env('SECRET_KEY', str, default='INSERTSECRETKEYHERE')
+
+DATABASES = {
+        'default': env.db('DATABASE_URL'),
+}
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+LOGIN_URL = env('LOGIN_URL', str, default='/manager/login/') # Modify for subdirectories
+LOGOUT_URL = env('LOGOUT_URL', str, default='/manager/logout/') # Modify for subdirectories
+LOGIN_REDIRECT_URL = env('LOGIN_REDIRECT_URL', str, default='/') # Modify for subdirectories
+STATIC_URL = env('STATIC_URL', str, default='/static/')
+
+static_root = env('STATIC_ROOT', str, default='/app/static')
+
+if static_root is not None:
+    STATIC_ROOT = os.path.join(BASE_DIR, static_root)
+
+# STATICFILES_DIRS = default=[]
+
+# staticfile_dir = env('STATICFILES_DIR', str, default=None)
+# if staticfile_dir is not None:
+#    STATICFILES_DIRS.append(
+#        os.path.join(BASE_DIR, staticfile_dir)
+#    )
+
+# Modify these values if hosting under subdirectory
+FORCE_SCRIPT_NAME = env('FORCE_SCRIPT_NAME', str, default='/')
+CSRF_COOKIE_PATH = env('CSRF_COOKIE_PATH', str, default='/')
+CSRF_COOKIE_HTTPONLY = env('CSRF_COOKIE_HTTPONLY', bool, default=False) # Should be set to true in production environments
+CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE', bool, default=False) # Should be set to true in production environments
+CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', list, default=['http://localhost:8000'])
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# NET Domain LDAP CONFIG
+LDAP_NET_HOST = env('LDAP_NET_HOST', str, default='ldaps://you.ldap.com')
+LDAP_NET_BASE_DN = env('LDAP_NET_BASE_DN', str, default='cn=Users,dc=you,dc=ldap,dc=com')
+LDAP_NET_USER_SUFFIX = env('LDAP_NET_USER_SUFFIX', str, default='@you.ldap.com')
+LDAP_NET_ATTR_MAP = { # LDAP Object -> User Object
+    'givenName': 'first_name',
+    'sn': 'sn',
+    'mail': 'email'
+}
+LDAP_NET_SEARCH_USER = env('LDAP_NET_SEARCH_USER', str, default='')
+LDAP_NET_SEARCH_PASS = env('LDAP_NET_SEARCH_PASS', str, default='')
+LDAP_NET_SEARCH_SIZELIMIT = env('LDAP_NET_SEARCH_SIZELIMIT', int, default=5)
+
+# JSON of Main Site Menu
+REMOTE_MENU_HEADER = env('REMOTE_MENU_HEADER', str, default='https://www.ucf.edu/wp-json/ucf-rest-menus/v1/menus/23/')
+# JSON of Main Site Footer Menu
+REMOTE_MENU_FOOTER = env('REMOTE_MENU_HEADER', str, default='https://www.ucf.edu/wp-json/ucf-rest-menus/v1/menus/24/')
+
+# Constants for Semesters
+SPRING_MONTH_START = env('SPRING_MONTH_START', int, default=1)
+SPRING_MONTH_END = env('SPRING_MONTH_END', int, default=5)
+SUMMER_MONTH_START = env('SUMMER_MONTH_START', int, default=5)
+SUMMER_MONTH_END = env('SUMMER_MONTH_END', int, default=7)
+FALL_MONTH_START = env('FALL_MONTH_START', int, default=8)
+FALL_MONTH_END = env('FALL_MONTH_END', int, default=12)
+
+GTM_ID = env('GTM_ID', str, default='')
+
+DAYS_UNTIL_EXPIRED = env('DAYS_UNTIL_EXPIRED', int, default=90)
 
 # Application definition
 
@@ -27,7 +107,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'announcements',
     'taggit',
-    'taggit_serializer',
+    'storages',
     'widget_tweaks',
     'rest_framework',
     'rest_framework.authtoken',
@@ -45,6 +125,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -132,11 +213,71 @@ USE_L10N = True
 
 USE_TZ = True
 
-try:
-    from settings_local import *
-except ImportError:
-    from django.core.exceptions import ImproperlyConfigured
-    raise ImproperlyConfigured(
-        'Local settings file was not found. ' +
-        'Ensure settings_local.py exists in project root.'
-    )
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        }
+    },
+    'formatters': {
+        'talkative': {
+            'format': '[%(asctime)s] %(levelname)s:%(module)s %(funcName)s %(lineno)d %(message)s'
+        },
+        'concise': {
+            'format': '%(levelname)s: %(message)s (%(asctime)s)'
+        }
+    },
+    'handlers': {
+        'discard': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'talkative',
+            'filters': ['require_debug_true']
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'application.log'),
+            'formatter': 'talkative',
+            'filters': ['require_debug_false']
+        }
+    },
+    'loggers': {
+        'core': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'django': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'events': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'profiles': {
+            'handlers': ['console', 'file'],
+            'propogate': True,
+            'level': 'WARNING'
+        },
+        'util': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING'
+        }
+    }
+}

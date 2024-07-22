@@ -1,0 +1,68 @@
+name: Push the Docker image to AWS ECR Repo
+on:
+  push:
+    branches:
+      - stages/prod
+  pull_request:
+    branches:
+      - stages/prod
+jobs:
+  Build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:  
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+          envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          envkey_STATIC_URL: ${{ secrets.STATIC_URL }}
+          envkey_STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
+          directory: .
+          file_name: .env
+          fail_on_empty: false
+          sort_keys: false
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR Public
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
+
+      - name: Get commit hash
+        id: get-commit-hash
+        run: echo "::set-output name=commit-hash::$(git rev-parse --short HEAD)"
+
+      - name: Build, tag, and push docker image to Amazon ECR Public
+        id: build-image
+        env:
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          ECR_REPOSITORY: announcements
+          IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}
+          ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          STATIC_URL: ${{ secrets.STATIC_URL }}
+          STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
+        run: |
+          podman build -f Containerfile -t $REGISTRY/x7a1r0o7/$ECR_REPOSITORY:$IMAGE_TAG .
+          podman push $REGISTRY/x7a1r0o7/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Update values.yaml
+        run: |
+          cd helm
+          sed -i 's|tag:.*|tag: '${{ steps.get-commit-hash.outputs.commit-hash }}'|' values.yaml 
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add values.yaml
+          git commit -m "Update values.yaml"
+          git push

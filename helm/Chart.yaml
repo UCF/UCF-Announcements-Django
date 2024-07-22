@@ -1,6 +1,10 @@
-apiVersion: v2
-name: helm
+apiVersion: v3
+name: announcements
 description: A Helm chart for Kubernetes
+
+dependencies:
+  - name: announcements
+    repository: https://github.com/ucf/ucf-announcements-django
 
 # A chart can be either an 'application' or a 'library' chart.
 #

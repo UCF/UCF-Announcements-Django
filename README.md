@@ -8,6 +8,8 @@ Django application for managing and displaying UCF-Announcements.
 
 Podman is necessary. For installation instructions please refer to the relevant documentation [here] (https://podman.io/docs/installation).
 
+Odo is also necessary. Installation instructions can be found [here] (https://odo.dev/docs/overview/installation).
+
 2. Ensure the podman machine is initialized
 
 Use the command:

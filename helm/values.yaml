@@ -8,7 +8,7 @@ image:
   repository: public.ecr.aws/x7a1r0o7/announcements
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 0cd8413
+  tag: 42c5c31
 
 imagePullSecrets: []
 nameOverride: ""
@@ -85,7 +85,7 @@ readinessProbe:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 

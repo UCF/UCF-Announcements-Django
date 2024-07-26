@@ -7,7 +7,7 @@ on:
       - stages/qa
       - stages/prod
     paths:
-      - 'helm/**'
+      - 'helm'
 
 jobs:
   release:
@@ -20,6 +20,8 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@master
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: helm/
         env:
           CR_TOKEN: '${{ secrets.CR_TOKEN }}'

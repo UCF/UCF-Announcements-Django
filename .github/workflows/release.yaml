@@ -22,7 +22,6 @@ jobs:
       - name: Package Helm chart
         run: |
           helm package ./helm
-          mv *.tgz .
 
       - name: Create index.yaml
         run: |

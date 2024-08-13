@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - stages/qa
-  pull_request:
-    branches:
-      - stages/qa
 jobs:
   Build:
     name: Build
@@ -47,22 +44,14 @@ jobs:
         id: build-image
         env:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-          ECR_REPOSITORY: announcements-qa
+          ECR_REPOSITORY: announcements-dev
           IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           STATIC_URL: ${{ secrets.STATIC_URL }}
           STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
         run: |
-          podman build -f Containerfile -t $REGISTRY/x7a1r0o7/$ECR_REPOSITORY:$IMAGE_TAG .
-          podman push $REGISTRY/x7a1r0o7/$ECR_REPOSITORY:$IMAGE_TAG
+          podman build -f Containerfile -t announcements-dev .
+          podman tag announcements-dev:latest 654654512735.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
+          podman push 654654512735.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
 
-      - name: Update values.yaml
-        run: |
-          cd helm
-          sed -i 's|tag:.*|tag: '${{ steps.get-commit-hash.outputs.commit-hash }}'|' values.yaml 
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
-          git add values.yaml
-          git commit -m "Update values.yaml"
-          git push

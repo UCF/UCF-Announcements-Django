@@ -44,14 +44,14 @@ jobs:
         id: build-image
         env:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-          ECR_REPOSITORY: announcements-dev
+          ECR_REPOSITORY: announcements-qa
           IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
           DATABASE_URL: ${{ secrets.QA_DATABASE_URL }}
           STATIC_URL: ${{ secrets.STATIC_URL }}
           STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
         run: |
-          podman build -f Containerfile -t announcements-dev .
-          podman tag announcements-dev:latest 654654512735.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
-          podman push 654654512735.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
+          podman build -f Containerfile -t announcements-qa .
+          podman tag announcements-qa:latest 654654512735.dkr.ecr.us-east-1.amazonaws.com/announcements-qa:latest
+          podman push 654654512735.dkr.ecr.us-east-1.amazonaws.com/announcements-qa:latest
 

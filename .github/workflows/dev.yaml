@@ -21,7 +21,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
-          envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          envkey_DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
           envkey_STATIC_URL: ${{ secrets.STATIC_URL }}
           envkey_STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
           directory: .

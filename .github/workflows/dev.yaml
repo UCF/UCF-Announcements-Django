@@ -3,6 +3,12 @@ on:
   push:
     branches:
       - stages/dev
+  workflow_dispatch:
+    inputs:
+      manual_ref:
+        type: string
+        description: The tag or hash that needs to be deployed
+
 jobs:
   Build:
     name: Build

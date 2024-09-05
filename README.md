@@ -21,7 +21,7 @@ Use the command:
 `podman machine start`
 
 (Optional if needed)
- 4. Change the Containerfile's "FROM" directive to match your architecture. 
+ 4. Change the Containerfile's "FROM" directive to match your architecture.
 
 Uncomment the relevant FROM statement at the top of the Containerfile
 
@@ -37,7 +37,7 @@ You will now be able to view the application at `0.0.0.0:8000`
 
 ## Troubleshooting
 
-- ODO Dev is not live-reloading for Announcements yet. Manually press Ctrl+C just once, and then reload the odo dev command. 
+- ODO Dev is not live-reloading for Announcements yet. Manually press Ctrl+C just once, and then reload the odo dev command.
 
 - If you press Ctrl+C twice, Odo will exit without cleaning up resources and then fail on future attempts to run it saying you have volumes or a Pod there. Use the following commands to clean those resources
 
@@ -179,4 +179,3 @@ Enhancements:
 
 ### v1.0.0
 * Initial Release
-

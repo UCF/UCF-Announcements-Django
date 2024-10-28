@@ -30,7 +30,7 @@ jobs:
           sort_keys: false
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1.7.0
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.ROLE_ARN }}
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
@@ -45,10 +45,10 @@ jobs:
         id: get-commit-hash
         run: echo "::set-output name=commit-hash::$(git rev-parse --short HEAD)"
 
-      - name: Build, tag, and push docker image to Amazon ECR Public
+      - name: Build, tag, and push docker image to Amazon ECR 
         id: build-image
         env:
-          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: announcements-dev
           IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
@@ -57,6 +57,6 @@ jobs:
           STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
         run: |
           podman build -f Containerfile -t announcements-dev .
-          podman tag announcements-dev:latest 654654512735.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
-          podman push 654654512735.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
+          podman tag announcements-dev:latest 897722699959.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
+          podman push 897722699959.dkr.ecr.us-east-1.amazonaws.com/announcements-dev
 

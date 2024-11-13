@@ -32,7 +32,12 @@
         {% for item in announcements %}
         <div class="col-lg-6 mb-4">
           <div class="card h-100">
-            <h2 class="h4 card-header">{{ item.title|emoji_replace }}</h2>
+            <h2 class="h4 card-header">
+              {% if item.emoji %}
+                {{ item.emoji|emoji_replace }}
+              {% endif %}
+              {{ item.title|emoji_replace }}
+            </h2>
             <div class="card-block">
               <p>{{ item.description|safe|truncatewords_html:25 }}</p>
               <dl>

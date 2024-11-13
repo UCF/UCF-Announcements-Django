@@ -157,6 +157,7 @@ setup(
        'django-auth-ldap>=4.6.0',
        'django-cors-headers>=4.3.1',
        'django-environ>=0.11.2',
+       'django-emoji>=2.2.2',
        'django-filter>=23.5',
        'django-storages>=1.13.2',
        'django-taggit>=5.0.1',

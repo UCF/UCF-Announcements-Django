@@ -1,27 +1,41 @@
-{% extends 'front-end-base.html' %} {% load announcements %}
-{% block meta_description %}Community info for UCF students, faculty, staff & alumni. Dont miss upcoming campus changes, volunteer opportunities, continuing education, workshops & more{% endblock %}
-{% block content_header %}
+{% extends 'front-end-base.html' %} {% load announcements %} {% block
+meta_description %}Community info for UCF students, faculty, staff & alumni.
+Dont miss upcoming campus changes, volunteer opportunities, continuing
+education, workshops & more{% endblock %} {% block content_header %}
 <div class="row">
   <div class="col-md-8">
-    <h1>Announcements - test 20240821 - 1538 </h1>
+    <h1>Announcements - test 20240821 - 1538 - testNov13</h1>
   </div>
   <div class="col-md-4">
-    <a href="{% url 'announcements.manager.create' %}" class="btn btn-outline-success"><span class="fa fa-pencil"></span> Post An Announcement</a>
+    <a
+      href="{% url 'announcements.manager.create' %}"
+      class="btn btn-outline-success"
+      ><span class="fa fa-pencil"></span> Post An Announcement</a
+    >
   </div>
 </div>
 <div class="my-4 mb-0 align-middle">
   <label class="mr-4" for="audience-filters">Filter by...</label>
-  {% for aud in audiences %}
-    {% if request.GET.audience %}
-      {% if request.GET.audience == aud.name %}
-        <a href="{% url 'announcements.home' %}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
-      {% else %}
-        <a href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}">{{ aud.name }}</a>
-      {% endif %}
-    {% else %}
-    <a href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}" class="btn btn-sm mx-1 {{ aud.name|audience_btn:'' }}">{{ aud.name }}</a>
-    {% endif %}
-  {% endfor %}
+  {% for aud in audiences %} {% if request.GET.audience %} {% if
+  request.GET.audience == aud.name %}
+  <a
+    href="{% url 'announcements.home' %}"
+    class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}"
+    >{{ aud.name }}</a
+  >
+  {% else %}
+  <a
+    href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}"
+    class="btn btn-sm mx-1 {{ aud.name|audience_btn:request.GET.audience }}"
+    >{{ aud.name }}</a
+  >
+  {% endif %} {% else %}
+  <a
+    href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}"
+    class="btn btn-sm mx-1 {{ aud.name|audience_btn:'' }}"
+    >{{ aud.name }}</a
+  >
+  {% endif %} {% endfor %}
 </div>
 {% endblock %} {% block content_body %}
 <div class="announcements">
@@ -36,11 +50,17 @@
             <div class="card-block">
               <p>{{ item.description|safe|truncatewords_html:25 }}</p>
               <dl>
-                <dt>Audience: </dt>
+                <dt>Audience:</dt>
                 <dd>
                   <ul class="list-unstyled list-inline">
                     {% for aud in item.audience.all %}
-                    <li class="list-inline-item"><a class="badge {{ aud.name|audience_badge }}" href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}">{{ aud.name }}</a></li>
+                    <li class="list-inline-item">
+                      <a
+                        class="badge {{ aud.name|audience_badge }}"
+                        href="{% url 'announcements.home' %}?audience={{ aud.name|urlencode }}"
+                        >{{ aud.name }}</a
+                      >
+                    </li>
                     {% endfor %}
                   </ul>
                 </dd>
@@ -49,13 +69,25 @@
                 <dt class="col-sm-4">Contact</dt>
                 <dd class="col-sm-8">{{ item.contact_name }}</dd>
                 <dt class="col-sm-4">Phone</dt>
-                <dd class="col-sm-8"><a href="tel:{{ item.contact_phone|strip_phone }}">{{ item.contact_phone }}</a></dd>
+                <dd class="col-sm-8">
+                  <a href="tel:{{ item.contact_phone|strip_phone }}"
+                    >{{ item.contact_phone }}</a
+                  >
+                </dd>
                 <dt class="col-sm-4">Email</dt>
-                <dd class="col-sm-8"><a href="mailto:{{ item.contact_email }}">{{ item.contact_email }}</a></dd>
+                <dd class="col-sm-8">
+                  <a href="mailto:{{ item.contact_email }}"
+                    >{{ item.contact_email }}</a
+                  >
+                </dd>
               </dl>
             </div>
             <div class="card-footer">
-              <a class="btn btn-primary btn-block" href="{% url 'announcements.detail' slug=item.slug %}">Learn More</a>
+              <a
+                class="btn btn-primary btn-block"
+                href="{% url 'announcements.detail' slug=item.slug %}"
+                >Learn More</a
+              >
             </div>
           </div>
         </div>
@@ -71,7 +103,9 @@
       <ul class="list-unstyled">
         {% for item in ongoing %}
         <li class="list-item py-2">
-          <a href="{% url 'announcements.detail' slug=item.slug %}">{{ item.title }}</a>
+          <a href="{% url 'announcements.detail' slug=item.slug %}"
+            >{{ item.title }}</a
+          >
         </li>
         {% endfor %}
       </ul>

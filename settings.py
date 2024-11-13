@@ -98,6 +98,7 @@ DAYS_UNTIL_EXPIRED = env('DAYS_UNTIL_EXPIRED', int, default=90)
 # Application definition
 
 INSTALLED_APPS = [
+    'emoji',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

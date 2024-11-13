@@ -125,6 +125,7 @@ class Announcement(models.Model):
     contact_email = models.CharField(max_length=100, null=False, blank=False)
     posted_by = models.CharField(max_length=255, null=False, blank=False)
     author = models.ForeignKey(User, related_name='announcements', blank=True, null=True)
+    emoji = models.CharField(max_length=255, null=True, blank=True)
 
     statuses = (
         ('Pending', 'Pending'),
@@ -177,7 +178,7 @@ class Announcement(models.Model):
     @property
     def permalink(self):
         return self.get_absolute_url()
-    
+
     @property
     def expired(self):
         return (datetime.date.today() - self.end_date).days > settings.DAYS_UNTIL_EXPIRED

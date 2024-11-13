@@ -5,6 +5,7 @@ bs4==0.0.1
 Django==1.11.18
 django-auth-ldap==1.2.10
 django-cors-headers==2.0.2
+django-emoji==2.2.2
 django-filter==1.1.0
 django-taggit==0.22.0
 django-taggit-serializer==0.1.5

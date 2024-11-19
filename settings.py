@@ -46,7 +46,7 @@ if static_root is not None:
 
 STATICFILES_DIRS = default=[]
 
-staticfile_dir = env('STATICFILES_DIR', str, default=None)
+staticfile_dir = env('STATICFILES_DIR', str, default='static')
 if staticfile_dir is not None:
     STATICFILES_DIRS.append(
         os.path.join(BASE_DIR, staticfile_dir)

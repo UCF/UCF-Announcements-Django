@@ -125,6 +125,7 @@ class Announcement(models.Model):
     contact_email = models.CharField(max_length=100, null=False, blank=False)
     posted_by = models.CharField(max_length=255, null=False, blank=False)
     author = models.ForeignKey(User, related_name='announcements', on_delete=models.CASCADE, blank=True, null=True)
+    emoji = models.CharField(max_length=255, blank=True, null=True)
 
     statuses = (
         ('Pending', 'Pending'),

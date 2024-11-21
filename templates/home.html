@@ -1,4 +1,4 @@
-{% extends 'front-end-base.html' %} {% load announcements %}
+{% extends 'front-end-base.html' %} {% load announcements %} {% load emoji_tags %}
 {% block meta_description %}Community info for UCF students, faculty, staff & alumni. Dont miss upcoming campus changes, volunteer opportunities, continuing education, workshops & more{% endblock %}
 {% block content_header %}
 <div class="row">
@@ -32,7 +32,7 @@
         {% for item in announcements %}
         <div class="col-lg-6 mb-4">
           <div class="card h-100">
-            <h2 class="h4 card-header">{{ item.title }}</h2>
+            <h2 class="h4 card-header">{{ item.emoji|emoji_replace }}{{ item.title|emoji_replace }}</h2>
             <div class="card-block">
               <p>{{ item.description|safe|truncatewords_html:25 }}</p>
               <dl>

@@ -108,7 +108,8 @@ INSTALLED_APPS = [
     'markdown',
     'bleach',
     'django_filters',
-    'drf_dynamic_fields'
+    'drf_dynamic_fields',
+    'emoji',
 ]
 
 MIDDLEWARE = [

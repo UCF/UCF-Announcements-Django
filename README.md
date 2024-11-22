@@ -20,11 +20,11 @@ Use the command:
 
 `podman machine start`
 
-4. Change the Containerfile's "FROM" directive to match your architecture. 
+4. Change the Containerfile's "FROM" directive to match your architecture.
 
 Uncomment the relevant FROM statement at the top of the Containerfile
 
-5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS and STATIC_ROOT options 
+5. Copy the `.env.templ` file to a file named `.env` and uncomment the ALLOWED_HOSTS and STATIC_ROOT options
 
 6. Build the container image
 
@@ -81,19 +81,21 @@ yum install openldap-devel python-devel
 
 ## Local Installation and Setup
 
-1. Install virtual environment: `pip install virtualenv`
-2. Create virtual environment for your project: `virtualenv projectfolder` and move to the directory `cd projectfolder/`
-3. Clone repository into src directory: `git clone git@github.com:UCF/unify-events.git src` and move to the directory `cd src/`
-4. Activate virtual environment: `source ../bin/activate`
-5. Copy the `.env.templ` file to `.env` and uncomment and update all configuration items necessary.
-6. Install requirements: `pip install -r requirements.txt`
-7. Install the required npm packages: `npm install`
-8. Make sure the default artifacts are created: `gulp default`
-9. Run the deployment steps: `python manage.py deploy`. This command is the equivelent of running the following individual commands:
+1. Clone the project into the desired directory and change directory into it
+2. Create virtual environment for your project: `python -m venv .venv`
+3. Activate virtual environment: `source .venv/bin/activate`
+4. Copy the `.env.templ` file to `.env` and uncomment and update all configuration items necessary.
+5. Install requirements: `pip install -r requirements.txt`
+6. Install the required npm packages: `npm install` and copy the `gulp-config.templ.json` file to `gulp-config.json`
+7. Make sure the default artifacts are created: `gulp default`
+8. Run the local build steps:
     a. `python manage.py migrate`
     b. `python manage.py loaddata audience`
-    c. `python manage.py collectstatic -l`
-10. Run the local server to debug and test: `python manage.py runserver`
+9. Run the local server to debug and test: `python manage.py runserver`
+
+### Static Files
+
+When running the application locally, handling static files requires a specific configuration. The `STATICFILES_DIRS` setting must be defined and pointing to the
 
 ## Changelog
 

@@ -61,7 +61,7 @@ jobs:
           DJANGO_SUPERUSER_USERNAME: ${{ secrets.DJANGO_SUPERUSER_USERNAME }}
           DJANGO_SUPERUSER_PASSWORD: ${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
           DJANGO_SUPERUSER_EMAIL: ${{ secrets.DJANGO_SUPERUSER_EMAIL }}
-	run: |
+        run: |
           podman build -f Containerfile -t announcements-dev .
           podman tag announcements-dev:latest 897722699959.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
           podman push 897722699959.dkr.ecr.us-east-1.amazonaws.com/announcements-dev

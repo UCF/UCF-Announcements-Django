@@ -2,6 +2,7 @@
 
 cd /app
 python manage.py migrate
+source .env
 
 if [ "$DJANGO_SUPERUSER_USERNAME" ]
 then

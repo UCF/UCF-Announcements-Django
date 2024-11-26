@@ -81,7 +81,9 @@ RUN mkdir -p /app
 COPY entrypoint.sh /app/
 COPY --from=builder /install /usr/local
 COPY --from=static-builder /app/static /app/static
+COPY .env /app
 COPY . /app
+
 
 WORKDIR /app
 

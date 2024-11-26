@@ -43,7 +43,7 @@ jobs:
           ECR_REPOSITORY: announcements-dev
           IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
           STATIC_URL: ${{ secrets.STATIC_URL }}
           STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
           DJANGO_SUPERUSER_USERNAME: ${{ secrets.DJANGO_SUPERUSER_USERNAME }}
@@ -54,7 +54,7 @@ jobs:
             --build-arg DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }} \
             --build-arg DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }} \
             --build-arg DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }} \
-            --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            --build-arg DATABASE_URL=${{ secrets.DEV_DATABASE_URL }} \
             -f Containerfile -t announcements-dev .
           podman tag announcements-dev:latest 897722699959.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
           podman push 897722699959.dkr.ecr.us-east-1.amazonaws.com/announcements-dev

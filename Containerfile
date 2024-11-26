@@ -97,7 +97,7 @@ ENV DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
 ENV DATABASE_URL=${DATABASE_URL}
 
 RUN sh -c 'python manage.py collectstatic --no-input'
-RUN sh -c 'python manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAILI || true'
+RUN sh -c 'python manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL || true'
 RUN mkdir -pv /var/log/gunicorn/
 RUN mkdir -pv /var/run/gunicorn/
 RUN mkdir -pv /var/www/announcements/static/

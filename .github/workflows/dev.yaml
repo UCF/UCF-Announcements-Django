@@ -21,21 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
-          envkey_DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
-          envkey_STATIC_URL: ${{ secrets.STATIC_URL }}
-          envkey_STATIC_ROOT: ${{ secrets.STATIC_ROOT }}
-          envkey_DJANGO_SUPERUSER_USERNAME: ${{ secrets.DJANGO_SUPERUSER_USERNAME }}
-          envkey_DJANGO_SUPERUSER_PASSWORD: ${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
-          envkey_DJANGO_SUPERUSER_EMAIL: ${{ secrets.DJANGO_SUPERUSER_EMAIL }}
-          directory: .
-          file_name: .env
-          fail_on_empty: false
-          sort_keys: false
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -65,7 +50,11 @@ jobs:
           DJANGO_SUPERUSER_PASSWORD: ${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
           DJANGO_SUPERUSER_EMAIL: ${{ secrets.DJANGO_SUPERUSER_EMAIL }}
         run: |
-          podman build -f Containerfile -t announcements-dev .
+          podman build \
+            --build-arg DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }} \
+            --build-arg DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }} \
+            --build-arg DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }} \
+            -f Containerfile -t announcements-dev .
           podman tag announcements-dev:latest 897722699959.dkr.ecr.us-east-1.amazonaws.com/announcements-dev:latest
           podman push 897722699959.dkr.ecr.us-east-1.amazonaws.com/announcements-dev
 

@@ -88,6 +88,7 @@ COPY . /app
 WORKDIR /app
 
 RUN sh -c 'python manage.py collectstatic --no-input'
+RUN sh -c 'python manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL'
 RUN mkdir -pv /var/log/gunicorn/
 RUN mkdir -pv /var/run/gunicorn/
 RUN mkdir -pv /var/www/announcements/static/

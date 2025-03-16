@@ -40,12 +40,8 @@ RUN pip install -r requirements.txt
 RUN python3 manage.py collectstatic --noinput
 RUN python3 manage.py migrate
 
-COPY /config/nginx/announcements.conf /etc/nginx/sites-available/
+RUN chmod +x /app/entrypoint.sh
 
-RUN ln -s /etc/nginx/sites-available/announcements.conf /etc/nginx/sites-enabled/announcements.conf
+EXPOSE 80
 
-RUN systemctl enable nginx
-
-EXPOSE 8000
-
-CMD ["sh", "-c", "nginx && gunicorn -c config/gunicorn/dev.py"]
+CMD ["/app/entrypoint.sh"]
